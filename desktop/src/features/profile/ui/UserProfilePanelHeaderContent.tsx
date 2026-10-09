@@ -41,7 +41,7 @@ export function getUserProfilePanelHeaderContent({
   const headerLeftContent = (
     <AuxiliaryPanelHeaderGroup
       align={shouldShowLogDetails ? "start" : "center"}
-      backButtonAriaLabel="Back to profile"
+      backButtonAriaLabel="返回详情"
       backButtonTestId="user-profile-panel-back"
       onBack={view !== "summary" ? onBack : undefined}
     >
@@ -71,7 +71,7 @@ export function getUserProfilePanelHeaderContent({
       {view === "summary" ? agentSettingsMenu : null}
       {view === "summary" && onEditAgent ? (
         <Button
-          aria-label="Edit agent"
+          aria-label="编辑智能体"
           className="text-sm"
           data-testid="user-profile-header-edit-agent"
           onClick={onEditAgent}
@@ -79,14 +79,14 @@ export function getUserProfilePanelHeaderContent({
           type="button"
           variant="ghost"
         >
-          Edit
+          编辑
         </Button>
       ) : null}
       {shouldShowLogDetails ? (
         <CopyButton
           className="text-muted-foreground hover:text-foreground"
           iconOnly
-          label="Copy log"
+          label="复制日志"
           size="icon"
           value={logCopyValue ?? ""}
           variant="ghost"

@@ -30,14 +30,14 @@ export type ProfilePanelView =
 export type ProfilePanelTab = "info" | "runtime" | "channels" | "memories";
 
 export const PROFILE_PANEL_VIEW_TITLES: Record<ProfilePanelView, string> = {
-  summary: "Profile",
-  instructions: "Agent instructions",
-  info: "Agent info",
-  configuration: "Runtime",
-  diagnostics: "Harness log",
-  memories: "Memories",
-  channels: "Channels",
-  logs: "Harness log",
+  summary: "智能体详情",
+  instructions: "智能体提示词/指令",
+  info: "智能体信息",
+  configuration: "运行时配置",
+  diagnostics: "运行日志",
+  memories: "记忆库",
+  channels: "所属频道",
+  logs: "运行日志",
 };
 
 const PROFILE_PANEL_VIEWS = new Set<ProfilePanelView>(

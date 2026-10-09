@@ -36,7 +36,7 @@ export function AgentIdentityFields({
   onDescriptionChange,
   disabled,
 }: AgentIdentityFieldsProps) {
-  const placeholder = "What this agent does, in a sentence";
+  const placeholder = "一句话介绍此智能体的功能";
   const descriptionLength = agentDescriptionCharacterCount(description);
   const showCounter =
     descriptionLength >= MAX_AGENT_DESCRIPTION_CHARS - COUNTER_VISIBLE_WITHIN;
@@ -48,7 +48,7 @@ export function AgentIdentityFields({
           className="text-sm font-medium text-foreground"
           htmlFor="persona-display-name"
         >
-          Agent name
+          智能体名称
         </label>
         <div
           className={cn(
@@ -76,8 +76,8 @@ export function AgentIdentityFields({
           className="text-sm font-medium text-foreground"
           htmlFor="persona-description"
         >
-          Description
-          <span className={PERSONA_LABEL_OPTIONAL_CLASS}>Optional</span>
+          智能体简介
+          <span className={PERSONA_LABEL_OPTIONAL_CLASS}>可选</span>
         </label>
         <div
           className={cn(
@@ -101,7 +101,7 @@ export function AgentIdentityFields({
         </div>
         <div className="flex items-baseline justify-between gap-2">
           <p className="text-xs text-muted-foreground">
-            Shown publicly on the agent&apos;s card and profile.
+            在智能体卡片和详情主页上公开展示。
           </p>
           {showCounter ? (
             <span className="shrink-0 text-2xs tabular-nums text-muted-foreground">

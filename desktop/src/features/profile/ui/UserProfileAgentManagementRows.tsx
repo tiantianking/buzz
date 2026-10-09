@@ -66,7 +66,7 @@ export function UserProfileAgentManagementRows({
         <ProfileAgentActionRow
           disabled={isDeletePending}
           icon={CopyPlus}
-          label="Duplicate agent"
+          label="克隆/复制智能体"
           onClick={onDuplicateAgent}
           testId="user-profile-duplicate-agent-row"
         />
@@ -75,7 +75,7 @@ export function UserProfileAgentManagementRows({
         <ProfileAgentActionRow
           disabled={isDeletePending}
           icon={Download}
-          label="Export agent"
+          label="导出智能体"
           onClick={onExportAgent}
           testId="user-profile-export-agent-row"
         />
@@ -84,7 +84,7 @@ export function UserProfileAgentManagementRows({
         <ProfileAgentActionRow
           disabled={isDeletePending}
           icon={Sparkles}
-          label="Create trading card"
+          label="创建智能体卡片"
           onClick={onCreateCard}
           testId="user-profile-create-card-row"
         />
@@ -161,11 +161,11 @@ function ProfileArchiveAgentRow({
   const Icon = isArchived ? ArchiveRestore : Archive;
   const label = archiveActions.isPending
     ? isArchived
-      ? "Unarchiving…"
-      : "Archiving…"
+      ? "正在取消归档…"
+      : "正在归档…"
     : isArchived
-      ? "Unarchive agent"
-      : "Archive agent";
+      ? "取消归档智能体"
+      : "归档智能体";
 
   return (
     <>
@@ -217,7 +217,7 @@ function ProfileDeleteAgentRow({
         destructive
         disabled={isPending}
         icon={Trash2}
-        label="Delete agent"
+        label="删除智能体"
         onClick={() => {
           if (managedAgent) {
             setConfirmOpen(true);
@@ -262,7 +262,7 @@ function AgentDeleteConfirmDialog({
     <AlertDialog onOpenChange={onOpenChange} open={open}>
       <AlertDialogContent data-testid="agent-delete-confirm-dialog">
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete this agent?</AlertDialogTitle>
+          <AlertDialogTitle>确认删除此智能体？</AlertDialogTitle>
           <AlertDialogDescription>
             {isProviderAgent
               ? "Deleting removes this agent’s local management record, not its remote deployment."
@@ -288,7 +288,7 @@ function AgentDeleteConfirmDialog({
         <AlertDialogFooter>
           <AlertDialogCancel asChild>
             <Button type="button" variant="outline">
-              Cancel
+              取消
             </Button>
           </AlertDialogCancel>
           <AlertDialogAction
@@ -297,7 +297,7 @@ function AgentDeleteConfirmDialog({
             disabled={isPending}
             onClick={onConfirm}
           >
-            {isPending ? "Deleting…" : "Delete agent"}
+            {isPending ? "正在删除…" : "删除智能体"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

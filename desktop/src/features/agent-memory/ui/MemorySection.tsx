@@ -193,7 +193,7 @@ function MemoryErrorState({
         <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
         <div className="space-y-1">
           <div className="font-medium text-destructive">
-            Couldn't load memory
+            无法加载记忆库
           </div>
           <div className="text-muted-foreground">{message}</div>
         </div>
@@ -205,7 +205,7 @@ function MemoryErrorState({
         size="sm"
         variant="outline"
       >
-        {retrying ? "Retrying…" : "Retry"}
+        {retrying ? "正在重试…" : "重试"}
       </Button>
     </div>
   );
@@ -227,13 +227,13 @@ function MemoryStaleErrorBanner({
       data-testid="agent-memory-stale-error"
     >
       <AlertTriangle className="h-4 w-4 shrink-0 text-warning" />
-      <span className="flex-1 text-muted-foreground">Refresh failed.</span>
+      <span className="flex-1 text-muted-foreground">刷新失败。</span>
       <button
         className="font-medium text-warning hover:underline"
         onClick={onRetry}
         type="button"
       >
-        Retry
+        重试
       </button>
     </div>
   );
@@ -263,9 +263,9 @@ function MemoryGraphView({
         data-testid="agent-memory-empty"
       >
         <Brain className="mx-auto h-4 w-4 text-muted-foreground" />
-        <p className="mt-3 text-sm font-medium">Build this agent's memory</p>
+        <p className="mt-3 text-sm font-medium">构建此智能体的记忆库</p>
         <p className="mt-1 text-sm text-muted-foreground">
-          Try telling this agent to remember something for next time.
+          尝试在对话中让智能体记住某些信息，以便下次调用。
         </p>
       </div>
     );

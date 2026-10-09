@@ -285,20 +285,20 @@ export function ProfileInfoTabContent({
         ) : (
           <ProfileIngressRow
             icon={Wrench}
-            label="Activity log"
+            label="活动日志"
             onClick={() => onOpenActivity(null)}
             testId={`user-profile-view-activity-${pubkey}`}
-            trailing="View"
+            trailing="查看"
           />
         )
       ) : null}
       {hasInfoFields || showInstructionBlock ? (
-        <ProfileSectionGroup testId="user-profile-info-section" title="Info">
+        <ProfileSectionGroup testId="user-profile-info-section" title="基本信息">
           {showInstructionBlock ? (
             <ProfileIngressRow
               grouped
               icon={MessageSquare}
-              label="Agent instructions"
+              label="智能体提示词/指令"
               onClick={onEditAgent}
               testId="user-profile-agent-instruction-row"
             />
@@ -421,7 +421,7 @@ function ProfileLiveActivityEmbed({
     selectedTurn?.anchorAt ??
     null;
   const emptyState = feedScope.isLive ? "loading" : "idle";
-  const emptyDescription = "Live activity will appear here.";
+  const emptyDescription = "实时活动将在此展示。";
   const openSelectedActivity = React.useCallback(() => {
     onOpenActivity(activeChannelId);
   }, [activeChannelId, onOpenActivity]);

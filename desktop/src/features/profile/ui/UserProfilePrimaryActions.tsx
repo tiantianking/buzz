@@ -211,6 +211,20 @@ function ProfileActionGroup({
   );
 }
 
+const ACTION_LABEL_I18N: Record<string, string> = {
+  "Start agent": "启动智能体",
+  "Stop agent": "停止智能体",
+  "Restart agent": "重启智能体",
+  "Starting…": "正在启动…",
+  "Stopping…": "正在停止…",
+  "Restarting…": "正在重启…",
+  "Message": "发送私信",
+  "Huddle": "语音通话",
+  "Wave": "打招呼",
+  "Follow": "关注",
+  "Unfollow": "取消关注",
+};
+
 function ProfileActionTile({
   active,
   disabled,
@@ -230,9 +244,10 @@ function ProfileActionTile({
   testId?: string;
   title?: string;
 }) {
+  const displayLabel = ACTION_LABEL_I18N[label] ?? label;
   return (
     <button
-      aria-label={label}
+      aria-label={displayLabel}
       aria-busy={isLoading || undefined}
       className={cn(
         "flex min-h-20 w-full flex-col items-center justify-center gap-1.5 rounded-xl bg-muted px-2 py-3 text-center transition-colors hover:bg-muted/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
@@ -251,7 +266,7 @@ function ProfileActionTile({
           className={cn("h-5 w-5 text-foreground", active && "text-background")}
         />
       )}
-      <span className="min-w-0 text-xs font-medium leading-tight">{label}</span>
+      <span className="min-w-0 text-xs font-medium leading-tight">{displayLabel}</span>
     </button>
   );
 }

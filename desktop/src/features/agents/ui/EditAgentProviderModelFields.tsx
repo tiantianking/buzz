@@ -82,13 +82,13 @@ export function EditAgentProviderModelFields({
             className="text-sm font-medium text-foreground"
             htmlFor="edit-agent-llm-provider"
           >
-            LLM provider
+            模型提供方 (Provider)
             {providerRequired ? (
               <span className="ml-1 text-destructive" aria-hidden="true">
                 *
               </span>
             ) : (
-              <span className={PERSONA_LABEL_OPTIONAL_CLASS}>Optional</span>
+              <span className={PERSONA_LABEL_OPTIONAL_CLASS}>可选</span>
             )}
           </label>
           <PersonaDropdownField
@@ -96,7 +96,7 @@ export function EditAgentProviderModelFields({
             id="edit-agent-llm-provider"
             onValueChange={onProviderDropdownChange}
             options={providerDropdownOptions}
-            placeholder="Default (auto)"
+            placeholder="默认 (自动)"
             value={providerSelectValue}
           />
           {isCustomProviderEditing ? (
@@ -107,7 +107,7 @@ export function EditAgentProviderModelFields({
               )}
             >
               <Input
-                aria-label="Custom provider ID"
+                aria-label="自定义提供方 ID"
                 autoCorrect="off"
                 className={cn(
                   "h-8 px-0 py-0 leading-6",
@@ -116,7 +116,7 @@ export function EditAgentProviderModelFields({
                 disabled={disabled}
                 id="edit-agent-custom-provider"
                 onChange={(event) => onProviderChange(event.target.value)}
-                placeholder="Custom provider ID"
+                placeholder="自定义提供方 ID"
                 value={provider}
               />
             </div>
@@ -143,13 +143,13 @@ export function EditAgentProviderModelFields({
           className="text-sm font-medium text-foreground"
           htmlFor="edit-agent-model"
         >
-          Model
+          模型 (Model)
           {modelRequired ? (
             <span className="ml-1 text-destructive" aria-hidden="true">
               *
             </span>
           ) : (
-            <span className={PERSONA_LABEL_OPTIONAL_CLASS}>Optional</span>
+            <span className={PERSONA_LABEL_OPTIONAL_CLASS}>可选</span>
           )}
         </label>
         <PersonaDropdownField
@@ -157,7 +157,7 @@ export function EditAgentProviderModelFields({
           id="edit-agent-model"
           onValueChange={onModelDropdownChange}
           options={modelDropdownOptions}
-          placeholder="Default model"
+          placeholder="默认模型"
           value={modelSelectValue}
         />
         {showCustomModelInput ? (
@@ -168,7 +168,7 @@ export function EditAgentProviderModelFields({
             )}
           >
             <Input
-              aria-label="Custom model ID"
+              aria-label="自定义模型 ID"
               autoCorrect="off"
               className={cn(
                 "h-8 px-0 py-0 leading-6",
@@ -177,7 +177,7 @@ export function EditAgentProviderModelFields({
               disabled={disabled}
               id="edit-agent-custom-model"
               onChange={(event) => onModelChange(event.target.value)}
-              placeholder="Custom model ID"
+              placeholder="自定义模型 ID"
               value={model}
             />
           </div>

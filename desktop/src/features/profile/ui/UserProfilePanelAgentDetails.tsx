@@ -119,7 +119,7 @@ export function AgentInstructionRow({
       <MessageSquare className="h-4 w-4 shrink-0 text-muted-foreground" />
       <div className="min-w-0 flex-1 text-left">
         <div className="text-xs font-medium text-foreground">
-          Agent instructions
+          智能体提示词/指令
         </div>
         {trimmedInstruction ? (
           canOpenInstructions ? (

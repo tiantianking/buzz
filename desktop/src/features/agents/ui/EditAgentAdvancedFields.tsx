@@ -173,7 +173,7 @@ export function EditAgentAdvancedFields({
               onChange={(event) => onInheritHarnessChange(event.target.checked)}
               type="checkbox"
             />
-            Inherit runtime from template
+            继承模板运行时
           </label>
           <p className="text-xs text-muted-foreground">
             {inheritHarness
@@ -198,7 +198,7 @@ export function EditAgentAdvancedFields({
             onChange={(event) => onAutoRestartChange(event.target.checked)}
             type="checkbox"
           />
-          Auto-restart on config change
+          配置变更时自动重启
         </label>
         <p className="text-xs text-muted-foreground">
           {autoRestartOnConfigChange
@@ -213,8 +213,8 @@ export function EditAgentAdvancedFields({
           className="text-sm font-medium text-foreground"
           htmlFor="edit-agent-args"
         >
-          Agent runtime args
-          <span className={PERSONA_LABEL_OPTIONAL_CLASS}>Optional</span>
+          运行时启动参数
+          <span className={PERSONA_LABEL_OPTIONAL_CLASS}>可选</span>
         </label>
         <div
           className={cn(
@@ -231,7 +231,7 @@ export function EditAgentAdvancedFields({
             disabled={disabled}
             id="edit-agent-args"
             onChange={(event) => onAgentArgsChange(event.target.value)}
-            placeholder="Comma-separated"
+            placeholder="逗号分隔"
             value={agentArgs}
           />
         </div>
@@ -243,7 +243,7 @@ export function EditAgentAdvancedFields({
           className="text-sm font-medium text-foreground"
           htmlFor="edit-agent-parallelism"
         >
-          Parallelism
+          并发数 (Parallelism)
         </label>
         <div
           className={cn(
@@ -261,7 +261,7 @@ export function EditAgentAdvancedFields({
             id="edit-agent-parallelism"
             inputMode="numeric"
             onChange={(event) => onParallelismChange(event.target.value)}
-            placeholder="Current value"
+            placeholder="当前数值"
             type="text"
             value={parallelism}
           />
@@ -288,14 +288,14 @@ export function EditAgentAdvancedFields({
             className="text-sm font-medium text-foreground"
             htmlFor="edit-agent-acp-command"
           >
-            ACP command
+            ACP 命令行
           </label>
           <PersonaDropdownField
             disabled={disabled}
             id="edit-agent-acp-command"
             onValueChange={onAcpCommandChange}
             options={acpCommandPicker.options}
-            placeholder="Choose an ACP command"
+            placeholder="选择 ACP 命令行"
             value={acpCommandPicker.selectValue}
           />
         </div>
@@ -309,8 +309,8 @@ export function EditAgentAdvancedFields({
             className="text-sm font-medium text-foreground"
             htmlFor="edit-agent-system-prompt"
           >
-            System prompt override
-            <span className={PERSONA_LABEL_OPTIONAL_CLASS}>Optional</span>
+            系统提示词覆盖
+            <span className={PERSONA_LABEL_OPTIONAL_CLASS}>可选</span>
           </label>
           <div className={PERSONA_FIELD_SHELL_CLASS}>
             <Textarea

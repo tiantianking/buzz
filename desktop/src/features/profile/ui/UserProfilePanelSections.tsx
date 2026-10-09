@@ -267,18 +267,18 @@ export function ProfileSummaryView({
       trailing?: React.ReactNode;
     }> = [];
     if (showInfoTab) {
-      items.push({ id: "info", label: "Info" });
+      items.push({ id: "info", label: "概览" });
     }
     if (showRuntimeTab) {
-      items.push({ id: "runtime", label: "Runtime" });
+      items.push({ id: "runtime", label: "运行时" });
     }
     if (showChannelsTab) {
-      items.push({ id: "channels", label: "Channels" });
+      items.push({ id: "channels", label: "所属频道" });
     }
     if (showMemoriesTab) {
       items.push({
         id: "memories",
-        label: "Memories",
+        label: "记忆库",
       });
     }
     return items;

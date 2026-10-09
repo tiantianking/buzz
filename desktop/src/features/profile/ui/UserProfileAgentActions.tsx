@@ -59,15 +59,15 @@ export function UserProfileAgentSettingsMenu({
     return null;
   }
 
-  const archiveLabel = isBot ? "Archive agent" : "Archive identity";
-  const unarchiveLabel = isBot ? "Unarchive agent" : "Unarchive identity";
+  const archiveLabel = isBot ? "归档智能体" : "归档身份";
+  const unarchiveLabel = isBot ? "取消归档智能体" : "取消归档身份";
 
   return (
     <>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button
-            aria-label="Open profile settings"
+            aria-label="打开设置"
             data-testid="user-profile-settings-menu-trigger"
             size="icon"
             type="button"
@@ -92,10 +92,10 @@ export function UserProfileAgentSettingsMenu({
             >
               <Power className="h-4 w-4 text-muted-foreground" />
               <span className="min-w-0 flex-1 text-sm font-medium">
-                Auto-start
+                开机自启
               </span>
               <Switch
-                aria-label="Auto-start"
+                aria-label="开机自启"
                 checked={managedAgent.startOnAppLaunch}
                 data-testid={autoStartSwitchId}
                 disabled={isPending}
@@ -112,7 +112,7 @@ export function UserProfileAgentSettingsMenu({
               onClick={onDuplicatePersona}
             >
               <CopyPlus className="h-4 w-4" />
-              Duplicate
+              克隆
             </DropdownMenuItem>
           ) : null}
           {onExportPersona ? (
@@ -122,7 +122,7 @@ export function UserProfileAgentSettingsMenu({
               onClick={onExportPersona}
             >
               <Download className="h-4 w-4" />
-              Export
+              导出
             </DropdownMenuItem>
           ) : null}
           {hasArchiveAction && (canToggleAutoStart || hasPrimaryActions) ? (
@@ -136,7 +136,7 @@ export function UserProfileAgentSettingsMenu({
                 onClick={archiveActions.unarchive}
               >
                 <ArchiveRestore className="h-4 w-4" />
-                {archiveActions.isPending ? "Unarchiving…" : unarchiveLabel}
+                {archiveActions.isPending ? "正在取消归档…" : unarchiveLabel}
               </DropdownMenuItem>
             ) : (
               <DropdownMenuItem
@@ -145,7 +145,7 @@ export function UserProfileAgentSettingsMenu({
                 onSelect={() => setArchiveConfirmOpen(true)}
               >
                 <Archive className="h-4 w-4" />
-                {archiveActions.isPending ? "Archiving…" : archiveLabel}
+                {archiveActions.isPending ? "正在归档…" : archiveLabel}
               </DropdownMenuItem>
             )
           ) : null}

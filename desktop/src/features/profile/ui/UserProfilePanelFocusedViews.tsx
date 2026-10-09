@@ -64,15 +64,15 @@ export function ChannelsFocusedView({
             disabled={isActionPending}
             grouped
             icon={UserPlus}
-            label="Add to channel"
+            label="添加到频道"
             onClick={onAddToChannel}
             testId="user-profile-agent-add-channel"
-            trailing={isActionPending ? "Working…" : undefined}
+            trailing={isActionPending ? "正在添加…" : undefined}
           />
         ) : null}
         {isLoading ? (
           <p className="px-4 py-3 text-sm leading-6 text-muted-foreground">
-            Loading channels…
+            正在加载频道列表…
           </p>
         ) : channels.length === 0 ? (
           <div
@@ -85,13 +85,13 @@ export function ChannelsFocusedView({
             <UserPlus className="mx-auto h-4 w-4 text-muted-foreground" />
             <p className="mt-3 text-sm font-medium">
               {canAddToChannel
-                ? "Add this agent to a channel"
-                : "Channels appear here"}
+                ? "将此智能体添加到频道"
+                : "所属频道将在此展示"}
             </p>
             <p className="mt-1 text-sm text-muted-foreground">
               {canAddToChannel
-                ? "Choose a channel above so it can join the conversation."
-                : "Visible memberships appear as this agent joins channels."}
+                ? "在上方选择频道以让智能体参与对话。"
+                : "当智能体加入频道后，将在此展示其所属频道列表。"}
             </p>
           </div>
         ) : (
@@ -136,7 +136,7 @@ export function AgentInfoFocusedView({
 
   return (
     <div className="pt-4">
-      <ProfileFieldGroup fields={metadataFields} title="Info" />
+      <ProfileFieldGroup fields={metadataFields} title="基本信息" />
     </div>
   );
 }
@@ -176,7 +176,7 @@ export function DiagnosticsFocusedView({
         >
           <CircleAlert className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
           <div className="min-w-0">
-            <AlertTitle>Last error</AlertTitle>
+            <AlertTitle>最近报错</AlertTitle>
             <AlertDescription className="wrap-break-word">
               {lastErrorField.displayValue}
             </AlertDescription>

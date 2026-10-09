@@ -59,8 +59,8 @@ export function EffortPickerField({
         className="text-sm font-medium text-foreground"
         htmlFor="edit-agent-effort"
       >
-        Thinking effort
-        <span className={PERSONA_LABEL_OPTIONAL_CLASS}>Optional</span>
+        思考深度 (Reasoning Effort)
+        <span className={PERSONA_LABEL_OPTIONAL_CLASS}>可选</span>
       </label>
       <PersonaDropdownField
         disabled={disabled}
@@ -69,7 +69,7 @@ export function EffortPickerField({
           onChange(effortSelectionToPersistedValue(next))
         }
         options={options}
-        placeholder="Adapter default"
+        placeholder="适配器默认"
         value={selectValue}
       />
       <p className="text-xs text-muted-foreground">
@@ -78,7 +78,7 @@ export function EffortPickerField({
           : note === "unlisted"
             ? `This model may not support ${selectValue}. `
             : null}
-        Applied at the next session start.
+        将在下次会话启动时生效。
       </p>
     </div>
   );

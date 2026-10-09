@@ -924,7 +924,7 @@ export function AgentInstanceEditDialog({
         data-testid="edit-agent-dialog"
         footerClassName="border-t-0 pt-0"
         headerClassName="pb-2"
-        title={`Edit ${agent.name}`}
+        title={`编辑 ${agent.name}`}
         footer={
           <div className="flex w-full items-center justify-end gap-2">
             <Button
@@ -933,7 +933,7 @@ export function AgentInstanceEditDialog({
               type="button"
               variant="outline"
             >
-              Cancel
+              取消
             </Button>
             <Button
               data-testid="edit-agent-dialog-submit"
@@ -941,7 +941,7 @@ export function AgentInstanceEditDialog({
               onClick={() => void handleSubmit()}
               type="button"
             >
-              {isSaving ? "Saving..." : "Save changes"}
+              {isSaving ? "正在保存..." : "保存更改"}
             </Button>
           </div>
         }
@@ -970,11 +970,11 @@ export function AgentInstanceEditDialog({
                 type="button"
                 variant="outline"
               >
-                Edit avatar
+                编辑头像
               </Button>
             ) : (
               <p className="text-center text-xs text-muted-foreground">
-                Avatar is shared identity
+                头像是共享身份属性
               </p>
             )}
           </div>
@@ -984,7 +984,7 @@ export function AgentInstanceEditDialog({
                 className="text-sm font-medium text-foreground"
                 htmlFor="edit-agent-name"
               >
-                Agent name
+                智能体名称
               </label>
               <div
                 className={cn(
@@ -1001,7 +1001,7 @@ export function AgentInstanceEditDialog({
                   disabled={isSaving}
                   id="edit-agent-name"
                   onChange={(event) => setName(event.target.value)}
-                  placeholder="Agent name"
+                  placeholder="智能体名称"
                   value={name}
                 />
               </div>
@@ -1022,14 +1022,14 @@ export function AgentInstanceEditDialog({
                 className="text-sm font-medium text-foreground"
                 htmlFor="edit-agent-runtime"
               >
-                Provider
+                提供方 / 运行时
               </label>
               <PersonaDropdownField
                 disabled={isSaving}
                 id="edit-agent-runtime"
                 onValueChange={handleRuntimeDropdownChange}
                 options={runtimeDropdownOptions}
-                placeholder="Choose a provider"
+                placeholder="选择提供方"
                 value={runtimeDropdownValue}
               />
               {selectedRuntime ? (
@@ -1147,7 +1147,7 @@ export function AgentInstanceEditDialog({
                 onClick={() => setShowAdvancedFields((current) => !current)}
                 type="button"
               >
-                <span>Advanced</span>
+                <span>高级设置</span>
                 <AdvancedRequiredBadge
                   envVars={inheritedSubmission.envVars}
                   requiredEnvKeys={advancedRequiredEnvKeys}

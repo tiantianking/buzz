@@ -209,7 +209,7 @@ export function AgentSessionTranscriptList({
         <div className="flex h-full min-h-40 flex-col items-center justify-center px-6 py-10 text-center">
           {isLoading ? (
             <FuzzyLogo
-              ariaLabel="Waiting for ACP activity"
+              ariaLabel="等待智能体活动记录"
               className="mx-auto text-muted-foreground"
               fuzz={false}
               loop
@@ -217,7 +217,7 @@ export function AgentSessionTranscriptList({
           ) : (
             <>
               <Radio className="mx-auto h-4 w-4 text-muted-foreground" />
-              <p className="mt-3 text-sm font-medium">No ACP activity yet</p>
+              <p className="mt-3 text-sm font-medium">暂无活动记录</p>
               <p className="mt-1 text-sm text-muted-foreground">
                 {emptyDescription}
               </p>

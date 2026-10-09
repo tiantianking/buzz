@@ -74,9 +74,9 @@ function formatSearchUserSecondary(user: UserSearchResult) {
 }
 
 const RESPOND_TO_OPTIONS: PersonaDropdownOption[] = [
-  { label: "Only me (default)", value: "owner-only" },
-  { label: "Anyone", value: "anyone" },
-  { label: "Selected people", value: "allowlist" },
+  { label: "仅限自己 (默认)", value: "owner-only" },
+  { label: "任何人", value: "anyone" },
+  { label: "指定人员", value: "allowlist" },
 ];
 
 export const OWNER_ONLY_ACCESS_DISABLED_REASON =
@@ -205,7 +205,7 @@ export function CreateAgentRespondToField({
         }
         htmlFor="agent-respond-to"
       >
-        Who can send instructions
+        谁可以发送指令
       </label>
       {isPersonaVariant ? (
         <PersonaDropdownField
@@ -213,7 +213,7 @@ export function CreateAgentRespondToField({
           id="agent-respond-to"
           onValueChange={(value) => onModeChange(value as RespondToMode)}
           options={RESPOND_TO_OPTIONS}
-          placeholder="Only me (default)"
+          placeholder="仅限自己 (默认)"
           value={mode}
         />
       ) : (
@@ -243,7 +243,7 @@ export function CreateAgentRespondToField({
       {mode === "anyone" ? accessWarning : null}
       {mode === "owner-only" ? (
         <p className="text-xs text-muted-foreground">
-          Only you and your agents can send instructions.
+          只有您和您的智能体可以发送指令。
         </p>
       ) : null}
       {mode === "allowlist" ? (

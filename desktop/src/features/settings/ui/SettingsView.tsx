@@ -75,6 +75,12 @@ export const settingsNavGroups: Array<{
   },
 ];
 
+const SETTINGS_GROUP_LABELS: Record<string, string> = {
+  Personal: "个人偏好",
+  Communities: "社区与网络",
+  App: "应用系统",
+};
+
 function SettingsSectionButton({
   active,
   onSelect,
@@ -241,11 +247,11 @@ export function SettingsView({
               <SidebarMenuButton
                 data-testid="settings-back-to-app"
                 onClick={onClose}
-                tooltip="Back to app"
+                tooltip="返回应用"
                 type="button"
               >
                 <ArrowLeft className="h-4 w-4" />
-                <span>Back to app</span>
+                <span>返回应用</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -258,7 +264,7 @@ export function SettingsView({
               data-testid="community-access-loading"
             >
               <LoaderCircle className="h-3.5 w-3.5 animate-spin" />
-              Checking invite permissions…
+              正在检查邀请权限…
             </div>
           ) : null}
           {myMembershipQuery.isError ? (
@@ -268,7 +274,7 @@ export function SettingsView({
             >
               <div className="flex items-center gap-2">
                 <AlertCircle className="h-3.5 w-3.5 text-destructive" />
-                Invite settings could not be checked.
+                无法检查邀请设置。
               </div>
               <button
                 className="flex items-center gap-1.5 font-medium text-sidebar-foreground underline-offset-2 hover:underline"
@@ -276,7 +282,7 @@ export function SettingsView({
                 type="button"
               >
                 <RefreshCw className="h-3.5 w-3.5" />
-                Try again
+                重试
               </button>
             </div>
           ) : null}
@@ -286,15 +292,16 @@ export function SettingsView({
               data-testid="community-access-snapshot-missing"
             >
               <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-500" />
-              Invite settings are unavailable. Relay recovery may still be in
-              progress.
+              邀请设置暂不可用，中继正在恢复中。
             </div>
           ) : null}
           {visibleNavGroups.map((group) => (
             <SidebarGroup key={group.label}>
-              <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+              <SidebarGroupLabel>
+                {SETTINGS_GROUP_LABELS[group.label] ?? group.label}
+              </SidebarGroupLabel>
               <SidebarGroupContent>
-                <SidebarMenu aria-label={`${group.label} settings sections`}>
+                <SidebarMenu aria-label={`${SETTINGS_GROUP_LABELS[group.label] ?? group.label} 设置分类`}>
                   {group.sections.map((entry) => (
                     <SettingsSectionButton
                       active={entry.value === section}

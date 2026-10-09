@@ -494,6 +494,24 @@ export function ProfileFieldGroup({
   );
 }
 
+const FIELD_LABEL_I18N: Record<string, string> = {
+  "Public key": "公钥 (Npub)",
+  "Managed by": "管理者",
+  "NIP-05": "NIP-05",
+  "Agent type": "智能体类型",
+  "Capabilities": "能力特性",
+  "Backend": "后端架构",
+  "Runtime": "运行时",
+  "Agent profile": "智能体身份",
+  "Who can send instructions": "指令发送权限",
+  "ACP command": "ACP 命令行",
+  "MCP command": "MCP 命令行",
+  "Start on launch": "随软件自启动",
+  "Status": "运行状态",
+  "Last error": "最近报错",
+  "Visibility": "可见性",
+};
+
 function ProfileFieldRow({
   field,
   variant,
@@ -521,7 +539,7 @@ function ProfileFieldRow({
       ) : null}
       <span className="min-w-0 flex-1 text-left">
         <span className="block text-sm font-medium text-foreground">
-          {field.label}
+          {FIELD_LABEL_I18N[field.label] ?? field.label}
         </span>
         {!isTrailingDisplay ? (
           <span
