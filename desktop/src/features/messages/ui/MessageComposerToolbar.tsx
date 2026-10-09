@@ -1,8 +1,9 @@
 import * as React from "react";
 import type { Editor } from "@tiptap/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ALargeSmall, Mic, Paperclip, X } from "lucide-react";
+import { ALargeSmall, Bot, Mic, Paperclip, X } from "lucide-react";
 
+import { useManagedAgentsQuery } from "@/features/agents/hooks";
 import type { MediaUploadController } from "@/features/messages/lib/useMediaUpload";
 import { Button } from "@/shared/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
@@ -98,6 +99,19 @@ export const MessageComposerToolbar = React.memo(
     shakeVersionByPubkey?: Readonly<Record<string, number>>;
   }) {
     const shouldReduceMotion = useReducedMotion();
+    const { data: managedAgents } = useManagedAgentsQuery();
+
+    const handleCallAllAgents = React.useCallback(() => {
+      if (!editor) return;
+      const names =
+        managedAgents && managedAgents.length > 0
+          ? managedAgents.map((a) => `@${a.name} `).join("")
+          : addressedAgents && addressedAgents.length > 0
+            ? addressedAgents.map((a) => `@${a.displayName} `).join("")
+            : "@all ";
+      editor.commands.insertContent(names);
+      editor.commands.focus();
+    }, [editor, managedAgents, addressedAgents]);
 
     return (
       <div
@@ -242,7 +256,24 @@ export const MessageComposerToolbar = React.memo(
                 <Tooltip disableHoverableContent>
                   <TooltipTrigger asChild>
                     <Button
-                      aria-label="Attach file"
+                      aria-label="一键呼叫所有 Agent"
+                      disabled={composerDisabled}
+                      onClick={handleCallAllAgents}
+                      onMouseDown={onCaptureSelection}
+                      size="icon"
+                      type="button"
+                      variant="ghost"
+                      title="一键呼叫所有 Agent"
+                    >
+                      <Bot className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>一键呼叫所有 Agent</TooltipContent>
+                </Tooltip>
+                <Tooltip disableHoverableContent>
+                  <TooltipTrigger asChild>
+                    <Button
+                      aria-label="上传附件"
                       disabled={
                         composerDisabled ||
                         isUploading ||
@@ -258,13 +289,13 @@ export const MessageComposerToolbar = React.memo(
                       <Paperclip />
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>Attach file</TooltipContent>
+                  <TooltipContent>上传附件</TooltipContent>
                 </Tooltip>
                 {onVoiceNote ? (
                   <Tooltip disableHoverableContent>
                     <TooltipTrigger asChild>
                       <Button
-                        aria-label="Record voice note"
+                        aria-label="录制语音"
                         disabled={composerDisabled || isUploading}
                         onClick={onVoiceNote}
                         onMouseDown={onCaptureSelection}
@@ -277,7 +308,7 @@ export const MessageComposerToolbar = React.memo(
                         </span>
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent>Record voice note</TooltipContent>
+                    <TooltipContent>录制语音</TooltipContent>
                   </Tooltip>
                 ) : null}
                 <ComposerEmojiPicker
@@ -299,7 +330,7 @@ export const MessageComposerToolbar = React.memo(
                   <Tooltip disableHoverableContent>
                     <TooltipTrigger asChild>
                       <Button
-                        aria-label="Toggle formatting"
+                        aria-label="文字排版"
                         aria-pressed={isFormattingOpen}
                         disabled={composerDisabled}
                         onClick={() => onFormattingToggle(!isFormattingOpen)}
@@ -311,7 +342,7 @@ export const MessageComposerToolbar = React.memo(
                         <ALargeSmall />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent>Formatting</TooltipContent>
+                    <TooltipContent>文字排版</TooltipContent>
                   </Tooltip>
                 </motion.div>
               </motion.div>

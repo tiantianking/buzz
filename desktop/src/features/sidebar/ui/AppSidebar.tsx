@@ -607,7 +607,7 @@ export function AppSidebar({
                       onSelectChannel={onSelectChannel}
                       onToggleCollapsed={() => toggleCollapsedGroup("starred")}
                       selectedChannelId={selectedChannelId}
-                      title="Starred"
+                      title="星标频道"
                       unreadChannelIds={unreadChannelIds}
                       mutedChannelIds={mutedChannelIds}
                       onMuteChannel={onMuteChannel}
@@ -701,7 +701,7 @@ export function AppSidebar({
                       }
                       actionsTestId="section-actions-channels"
                       listTestId="stream-list"
-                      quickCreateLabel="Browse channels"
+                      quickCreateLabel="浏览频道"
                       onQuickCreateClick={() => onBrowseChannels?.()}
                       showQuickCreate
                       onMarkAllRead={onMarkAllChannelsRead}
@@ -710,7 +710,7 @@ export function AppSidebar({
                       onSelectChannel={onSelectChannel}
                       onToggleCollapsed={() => toggleCollapsedGroup("channels")}
                       selectedChannelId={selectedChannelId}
-                      title="Channels"
+                      title="频道列表"
                       unreadChannelIds={unreadChannelIds}
                       sections={channelSections}
                       assignments={channelAssignments}
@@ -729,7 +729,7 @@ export function AppSidebar({
                   </SidebarDndContext>
                   <FeatureGate feature="forum">
                     <ChannelGroupSection
-                      createLabel="New forum"
+                      createLabel="新建论坛"
                       hasUnread={unreadChannelIds.size > 0}
                       isCollapsed={collapsedGroups.forums}
                       isActiveChannel={selectedView === "channel"}
@@ -748,7 +748,7 @@ export function AppSidebar({
                       onSelectChannel={onSelectChannel}
                       onToggleCollapsed={() => toggleCollapsedGroup("forums")}
                       selectedChannelId={selectedChannelId}
-                      title="Forums"
+                      title="论坛交流"
                       unreadChannelIds={unreadChannelIds}
                       mutedChannelIds={mutedChannelIds}
                       onMuteChannel={onMuteChannel}
@@ -760,12 +760,12 @@ export function AppSidebar({
                     action={
                       <div className="absolute right-1 top-1/2 z-10 flex -translate-y-1/2 items-center gap-0.5">
                         <SectionQuickAction
-                          label="New message"
+                          label="发起私信"
                           onClick={onNewMessage}
                           testId="section-actions-dms-quick-create"
                         />
                         <SectionActionsMenu
-                          sectionLabel="direct messages"
+                          sectionLabel="私信"
                           testId="section-actions-dms"
                           onOpenChange={setDmActionsMenuOpen}
                           onNewMessage={onNewMessage}
@@ -792,7 +792,7 @@ export function AppSidebar({
                     presenceByChannelId={dmPresenceByChannelId}
                     selectedChannelId={selectedChannelId}
                     testId="dm-list"
-                    title="Direct messages"
+                    title="私信"
                     sectionActionsOpen={dmActionsMenuOpen}
                     unreadChannelCounts={unreadChannelCounts}
                     unreadChannelIds={unreadChannelIds}

@@ -20,7 +20,7 @@ import { Skeleton } from "@/shared/ui/skeleton";
 /** Shared title row so the skeleton and loaded panel keep the same chrome. */
 export function MessageThreadPanelHeader({
   headerLeading,
-  headerTitle = "Thread",
+  headerTitle = "话题讨论",
   headerTitleAriaLabel,
   isFocusMode,
   isSinglePanelView,

@@ -858,8 +858,8 @@ export function MessageThreadPanel({
               onSend={onSend}
               placeholder={
                 isHuddleTranscript
-                  ? "Message the huddle"
-                  : `Reply in thread to ${threadHead.author}`
+                  ? "在讨论室发言"
+                  : `在话题中回复 ${threadHead.author}`
               }
               profiles={profiles}
               recentMentionPubkeys={recentMentionPubkeys}

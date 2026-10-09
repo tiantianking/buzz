@@ -112,11 +112,11 @@ export function AppSidebarPrimaryMenu({
               className="data-[active=true]:font-normal"
               isActive={selectedView === "home"}
               onClick={onSelectHome}
-              tooltip="Inbox"
+              tooltip="收件箱"
               type="button"
             >
               <Inbox className="h-4 w-4" />
-              <SidebarMenuLabel>Inbox</SidebarMenuLabel>
+              <SidebarMenuLabel>收件箱</SidebarMenuLabel>
             </SidebarMenuButton>
             {homeBadgeCount > 0 ? (
               <SidebarMenuBadge
@@ -133,11 +133,11 @@ export function AppSidebarPrimaryMenu({
                 data-testid="open-pulse-view"
                 isActive={selectedView === "pulse"}
                 onClick={onSelectPulse}
-                tooltip="Pulse"
+                tooltip="动态"
                 type="button"
               >
                 <Activity className="h-4 w-4" />
-                <SidebarMenuLabel>Pulse</SidebarMenuLabel>
+                <SidebarMenuLabel>动态</SidebarMenuLabel>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </FeatureGate>
@@ -147,11 +147,11 @@ export function AppSidebarPrimaryMenu({
                 data-testid="open-projects-view"
                 isActive={selectedView === "projects" && projectsOverviewActive}
                 onClick={onSelectProjects}
-                tooltip="Projects"
+                tooltip="项目工程"
                 type="button"
               >
                 <Folders className="h-4 w-4" />
-                <SidebarMenuLabel>Projects</SidebarMenuLabel>
+                <SidebarMenuLabel>项目工程</SidebarMenuLabel>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </FeatureGate>
@@ -161,11 +161,11 @@ export function AppSidebarPrimaryMenu({
               data-testid="open-agents-view"
               isActive={selectedView === "agents"}
               onClick={onSelectAgents}
-              tooltip="Agents"
+              tooltip="智能体 (Agents)"
               type="button"
             >
               <Bot className="h-4 w-4" />
-              <SidebarMenuLabel>Agents</SidebarMenuLabel>
+              <SidebarMenuLabel>智能体 (Agents)</SidebarMenuLabel>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <ProtectedBestieSidebarEntry />
@@ -175,11 +175,11 @@ export function AppSidebarPrimaryMenu({
                 data-testid="open-workflows-view"
                 isActive={selectedView === "workflows"}
                 onClick={onSelectWorkflows}
-                tooltip="Workflows"
+                tooltip="工作流"
                 type="button"
               >
                 <Zap className="h-4 w-4" />
-                <SidebarMenuLabel>Workflows</SidebarMenuLabel>
+                <SidebarMenuLabel>工作流</SidebarMenuLabel>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </FeatureGate>

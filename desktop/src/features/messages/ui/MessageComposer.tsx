@@ -273,11 +273,11 @@ function MessageComposerImpl({
     });
   }, []);
   const computedPlaceholder = editTarget
-    ? "Edit your message"
+    ? "编辑你的消息"
     : (placeholder ??
       (replyTarget
-        ? `Reply to ${replyTarget.author} in #${channelName}`
-        : `Message #${channelName}`));
+        ? `在 #${channelName} 回复 ${replyTarget.author}`
+        : `发送消息至 #${channelName}`));
   const richText = useRichTextEditor({
     placeholder: computedPlaceholder,
     editable: !composerDisabled,
