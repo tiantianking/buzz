@@ -57,7 +57,7 @@ def main() -> int:
 
     digest = hashlib.sha256()
     descriptors = {
-        "schema": "desktop-rust-release-v1",
+        "schema": "desktop-rust-release-v2",
         "platform": args.platform,
         "target": args.target,
         "profile": "release",
@@ -73,7 +73,7 @@ def main() -> int:
         digest.update(str(relative).encode() + b"\0")
         digest.update(normalized(relative, absolute.read_bytes()) + b"\0")
 
-    print(f"desktop-rust-release-v1-{args.platform}-{args.target}-{digest.hexdigest()}")
+    print(f"desktop-rust-release-v2-{args.platform}-{args.target}-{digest.hexdigest()}")
     return 0
 
 

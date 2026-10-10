@@ -126,9 +126,9 @@ export function EditCommunityDialog({
     <Dialog onOpenChange={onOpenChange} open={open}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Edit Community</DialogTitle>
+          <DialogTitle>编辑社区</DialogTitle>
           <DialogDescription>
-            Update this community's name or relay URL.
+            更新此社区的名称或中继器 (Relay) URL。
           </DialogDescription>
         </DialogHeader>
         <form
@@ -138,9 +138,9 @@ export function EditCommunityDialog({
           {canEditIcon ? (
             <div className="flex items-center justify-between gap-4 rounded-xl border border-border/70 bg-muted/20 p-3">
               <div className="min-w-0">
-                <p className="text-sm font-medium">Community icon</p>
+                <p className="text-sm font-medium">社区图标</p>
                 <p className="text-xs text-muted-foreground">
-                  Shown in the community rail and switcher.
+                  显示在社区导航栏和切换器中。
                 </p>
               </div>
               <CommunityIconSettingsCard compact />
@@ -151,13 +151,13 @@ export function EditCommunityDialog({
               className="text-sm font-medium text-foreground"
               htmlFor="edit-ws-name"
             >
-              Name
+              名称
             </label>
             <Input
               autoFocus
               id="edit-ws-name"
               onChange={(e) => setName(e.target.value)}
-              placeholder="My Community"
+              placeholder="我的社区"
               type="text"
               value={name}
             />
@@ -167,7 +167,7 @@ export function EditCommunityDialog({
               className="text-sm font-medium text-foreground"
               htmlFor="edit-ws-relay-url"
             >
-              Relay URL
+              中继器 (Relay) URL
             </label>
             <Input
               id="edit-ws-relay-url"
@@ -182,9 +182,9 @@ export function EditCommunityDialog({
               className="text-sm font-medium text-foreground"
               htmlFor="edit-ws-token"
             >
-              API Token
+              API 令牌
               <span className="ml-1 text-xs font-normal text-muted-foreground">
-                (optional)
+                (可选)
               </span>
             </label>
             <Input
@@ -200,9 +200,9 @@ export function EditCommunityDialog({
               className="text-sm font-medium text-foreground"
               htmlFor="edit-ws-repos-dir"
             >
-              Repos Directory
+              仓库目录 (Repos)
               <span className="ml-1 text-xs font-normal text-muted-foreground">
-                (optional)
+                (可选)
               </span>
             </label>
             <Input
@@ -219,17 +219,15 @@ export function EditCommunityDialog({
               <p className="text-xs text-destructive">{reposDirError}</p>
             ) : null}
             <p className="text-xs text-muted-foreground">
-              Point the agent's <code>REPOS</code> directory at an existing
-              folder so agents work in your local checkouts. Leave blank to use
-              the default location.
+              将智能体的 <code>REPOS</code> 目录指向本地已有的代码仓库文件夹，便于智能体在本地检出中工作。留空则使用默认路径。
             </p>
           </div>
           <div className="flex justify-end gap-2 pt-2">
             <Button onClick={handleClose} type="button" variant="outline">
-              Cancel
+              取消
             </Button>
             <Button disabled={!name.trim() || !relayUrl.trim()} type="submit">
-              Save Changes
+              保存修改
             </Button>
           </div>
         </form>

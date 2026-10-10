@@ -59,7 +59,7 @@ function MoveToSectionSubmenu({
     <ContextMenuSub>
       <ContextMenuSubTrigger>
         <ContextMenuIconSlot />
-        <span>Move to section</span>
+        <span>移动到分组</span>
       </ContextMenuSubTrigger>
       <ContextMenuSubContent>
         {sections.map((section) => (
@@ -88,14 +88,14 @@ function MoveToSectionSubmenu({
           <ContextMenuIconSlot>
             <Plus className="h-4 w-4" />
           </ContextMenuIconSlot>
-          <span>New section...</span>
+          <span>新建分组...</span>
         </ContextMenuItem>
         {currentSectionId ? (
           <ContextMenuItem
             onSelect={() => deferMenuAction(() => onUnassignChannel(channelId))}
           >
             <ContextMenuIconSlot />
-            <span>Remove from section</span>
+            <span>从分组中移除</span>
           </ContextMenuItem>
         ) : null}
       </ContextMenuSubContent>
@@ -114,25 +114,25 @@ function CopyChannelSubmenu({ channel }: { channel: Channel }) {
         <ContextMenuIconSlot>
           <Copy className="h-4 w-4" />
         </ContextMenuIconSlot>
-        <span>Copy</span>
+        <span>复制</span>
       </ContextMenuSubTrigger>
       <ContextMenuSubContent>
         <ContextMenuItem
           onSelect={() =>
             copyTextToClipboard(
               channel.name,
-              "Channel name copied to clipboard",
+              "频道名称已复制到剪贴板",
             )
           }
         >
-          <span>Copy channel name</span>
+          <span>复制频道名称</span>
         </ContextMenuItem>
         <ContextMenuItem
           onSelect={() =>
-            copyTextToClipboard(channel.id, "Channel ID copied to clipboard")
+            copyTextToClipboard(channel.id, "频道 ID 已复制到剪贴板")
           }
         >
-          <span>Copy channel ID</span>
+          <span>复制频道 ID</span>
         </ContextMenuItem>
       </ContextMenuSubContent>
     </ContextMenuSub>
@@ -261,7 +261,7 @@ export function ChannelContextMenuItems({
           <ContextMenuIconSlot>
             <CheckCircle2 className="h-4 w-4" />
           </ContextMenuIconSlot>
-          <span>Mark as read</span>
+          <span>标为已读</span>
         </ContextMenuItem>
       ) : !hasProjectedUnread && onMarkChannelUnread ? (
         <ContextMenuItem
@@ -272,7 +272,7 @@ export function ChannelContextMenuItems({
           <ContextMenuIconSlot>
             <CircleDot className="h-4 w-4" />
           </ContextMenuIconSlot>
-          <span>Mark unread</span>
+          <span>标为未读</span>
         </ContextMenuItem>
       ) : null}
       {showMuteToggle || showStar ? <ContextMenuSeparator /> : null}
@@ -286,7 +286,7 @@ export function ChannelContextMenuItems({
             <ContextMenuIconSlot>
               <Bell className="h-4 w-4" />
             </ContextMenuIconSlot>
-            <span>Unmute channel</span>
+            <span>取消静音频道</span>
           </ContextMenuItem>
         ) : (
           <ContextMenuItem
@@ -295,7 +295,7 @@ export function ChannelContextMenuItems({
             <ContextMenuIconSlot>
               <BellOff className="h-4 w-4" />
             </ContextMenuIconSlot>
-            <span>Mute channel</span>
+            <span>静音频道</span>
           </ContextMenuItem>
         )
       ) : null}
@@ -309,7 +309,7 @@ export function ChannelContextMenuItems({
             <ContextMenuIconSlot>
               <StarOff className="h-4 w-4" />
             </ContextMenuIconSlot>
-            <span>Unstar channel</span>
+            <span>取消星标频道</span>
           </ContextMenuItem>
         ) : (
           <ContextMenuItem
@@ -318,7 +318,7 @@ export function ChannelContextMenuItems({
             <ContextMenuIconSlot>
               <Star className="h-4 w-4" />
             </ContextMenuIconSlot>
-            <span>Star channel</span>
+            <span>星标频道</span>
           </ContextMenuItem>
         )
       ) : null}
@@ -331,7 +331,7 @@ export function ChannelContextMenuItems({
           <ContextMenuIconSlot>
             <LogOut className="h-4 w-4" />
           </ContextMenuIconSlot>
-          <span>Leave channel</span>
+          <span>退出频道</span>
         </ContextMenuItem>
       ) : null}
       {ownerActionsLoading ? (
@@ -339,14 +339,14 @@ export function ChannelContextMenuItems({
           <ContextMenuIconSlot>
             <LoaderCircle className="h-4 w-4 animate-spin" />
           </ContextMenuIconSlot>
-          <span>Loading channel actions...</span>
+          <span>正在加载频道操作...</span>
         </ContextMenuItem>
       ) : ownerActionsError ? (
         <ContextMenuItem disabled>
           <ContextMenuIconSlot>
             <TriangleAlert className="h-4 w-4" />
           </ContextMenuIconSlot>
-          <span>Channel actions unavailable</span>
+          <span>频道操作不可用</span>
         </ContextMenuItem>
       ) : null}
       {canManageChannel ? (
@@ -358,7 +358,7 @@ export function ChannelContextMenuItems({
           <ContextMenuIconSlot>
             <Archive className="h-4 w-4" />
           </ContextMenuIconSlot>
-          <span>Archive channel</span>
+          <span>归档频道</span>
         </ContextMenuItem>
       ) : null}
       {canDeleteChannel ? (
@@ -370,7 +370,7 @@ export function ChannelContextMenuItems({
           <ContextMenuIconSlot>
             <Trash2 className="h-4 w-4" />
           </ContextMenuIconSlot>
-          <span>Delete channel</span>
+          <span>删除频道</span>
         </ContextMenuItem>
       ) : null}
     </>

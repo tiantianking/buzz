@@ -145,7 +145,7 @@ export function ChannelResultBody({ channel }: { channel: Channel }) {
         <p className="text-sm font-semibold tracking-tight">{channel.name}</p>
         <Badge variant="secondary">{channel.channelType}</Badge>
         <p className="ml-auto whitespace-nowrap text-xs text-muted-foreground">
-          Channel
+          频道
         </p>
       </div>
       {channel.description ? (
@@ -160,26 +160,26 @@ export function ChannelResultBody({ channel }: { channel: Channel }) {
 function describeSearchHit(hit: SearchHit) {
   switch (hit.kind) {
     case 1:
-      return "Note";
+      return "动态";
     case 45001:
-      return "Forum post";
+      return "论坛帖子";
     case 45003:
-      return "Forum reply";
+      return "论坛回复";
     case 43001:
-      return "Agent job";
+      return "智能体任务";
     case 43003:
-      return "Agent update";
+      return "智能体动态";
     case 46010:
-      return "Approval request";
+      return "审批请求";
     default:
-      return "Message";
+      return "消息";
   }
 }
 
 function truncateContent(content: string) {
   const trimmed = content.trim();
   if (trimmed.length === 0) {
-    return "No message body.";
+    return "无消息正文。";
   }
 
   if (trimmed.length <= 180) {
@@ -193,18 +193,18 @@ function formatRelativeTime(unixSeconds: number) {
   const diff = Math.floor(Date.now() / 1_000) - unixSeconds;
 
   if (diff < 60) {
-    return "just now";
+    return "刚刚";
   }
 
   if (diff < 60 * 60) {
-    return `${Math.floor(diff / 60)}m ago`;
+    return `${Math.floor(diff / 60)} 分钟前`;
   }
 
   if (diff < 60 * 60 * 24) {
-    return `${Math.floor(diff / (60 * 60))}h ago`;
+    return `${Math.floor(diff / (60 * 60))} 小时前`;
   }
 
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat("zh-CN", {
     month: "short",
     day: "numeric",
     hour: "numeric",

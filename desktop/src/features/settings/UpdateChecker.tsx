@@ -12,11 +12,11 @@ export function UpdateChecker() {
   return (
     <section className="min-w-0" data-testid="settings-updates">
       <SettingsSectionHeader
-        title="Software Updates"
-        description="Keep Buzz up to date with the latest features and fixes."
+        title="软件更新"
+        description="保持 Buzz 为最新版本以体验最新功能与修复。"
       />
 
-      <SettingsOptionGroup title="Update status">
+      <SettingsOptionGroup title="更新状态">
         {status.state === "idle" && (
           <SettingsOptionRow>
             <div className="min-w-0">
@@ -24,11 +24,11 @@ export function UpdateChecker() {
                 className="text-sm font-normal text-muted-foreground/70"
                 data-settings-subcopy
               >
-                Check if a new version is available.
+                检查是否有新版本可用。
               </p>
             </div>
             <Button size="sm" onClick={checkForUpdate}>
-              Check for Updates
+              检查更新
             </Button>
           </SettingsOptionRow>
         )}
@@ -40,7 +40,7 @@ export function UpdateChecker() {
                 className="text-sm font-normal text-muted-foreground/70"
                 data-settings-subcopy
               >
-                Checking for updates...
+                正在检查更新...
               </p>
             </div>
           </SettingsOptionRow>
@@ -53,11 +53,11 @@ export function UpdateChecker() {
                 className="text-sm font-normal text-muted-foreground/70"
                 data-settings-subcopy
               >
-                You're on the latest version.
+                当前已是最新版本。
               </p>
             </div>
             <Button variant="outline" size="sm" onClick={checkForUpdate}>
-              Check Again
+              重新检查
             </Button>
           </SettingsOptionRow>
         )}
@@ -69,12 +69,11 @@ export function UpdateChecker() {
                 className="text-sm font-normal text-muted-foreground/70"
                 data-settings-subcopy
               >
-                Automatic updates aren't available on this build. Download the
-                latest release manually.
+                当前构建版本不支持自动更新，请手动下载最新版本。
               </p>
             </div>
             <Button variant="outline" size="sm" onClick={checkForUpdate}>
-              Check Again
+              重新检查
             </Button>
           </SettingsOptionRow>
         )}
@@ -83,19 +82,18 @@ export function UpdateChecker() {
           <SettingsOptionRow>
             <div className="min-w-0">
               <p className="text-sm font-medium">
-                Update available — v{status.version}
+                发现新版本 — v{status.version}
               </p>
               <p
                 className="text-sm font-normal text-muted-foreground/70"
                 data-settings-subcopy
               >
-                In-app updates aren't supported on this Linux package. Download
-                the new version from GitHub.{" "}
-                <span>Switch to the AppImage build for automatic updates.</span>
+                当前 Linux 安装包不支持应用内自动更新，请从 GitHub 下载新版本。{" "}
+                <span>推荐使用 AppImage 版本以获得自动更新支持。</span>
               </p>
             </div>
             <Button size="sm" onClick={() => void openUrl(status.releaseUrl)}>
-              Download Update
+              下载更新
             </Button>
           </SettingsOptionRow>
         )}
@@ -107,7 +105,7 @@ export function UpdateChecker() {
                 className="text-sm font-normal text-muted-foreground/70"
                 data-settings-subcopy
               >
-                Preparing update...
+                正在准备更新...
               </p>
             </div>
           </SettingsOptionRow>
@@ -120,7 +118,7 @@ export function UpdateChecker() {
                 className="text-sm font-normal text-muted-foreground/70"
                 data-settings-subcopy
               >
-                Downloading update...
+                正在下载更新...
               </p>
             </div>
           </SettingsOptionRow>
@@ -133,7 +131,7 @@ export function UpdateChecker() {
                 className="text-sm font-normal text-muted-foreground/70"
                 data-settings-subcopy
               >
-                Installing update...
+                正在安装更新...
               </p>
             </div>
           </SettingsOptionRow>
@@ -146,11 +144,11 @@ export function UpdateChecker() {
                 className="text-sm font-normal text-muted-foreground/70"
                 data-settings-subcopy
               >
-                Update downloaded. Click to apply.
+                新版本已下载完毕。点击即可立即安装并重启应用。
               </p>
             </div>
             <Button size="sm" onClick={installAndRelaunch}>
-              Update Now
+              立即更新
             </Button>
           </SettingsOptionRow>
         )}
@@ -159,11 +157,11 @@ export function UpdateChecker() {
           <SettingsOptionRow>
             <div className="min-w-0">
               <p className="text-sm font-normal text-destructive">
-                Update failed: {status.message}
+                更新失败: {status.message}
               </p>
             </div>
             <Button variant="outline" size="sm" onClick={checkForUpdate}>
-              Retry
+              重试
             </Button>
           </SettingsOptionRow>
         )}

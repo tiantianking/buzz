@@ -401,9 +401,9 @@ function SingleThemeTile({
 type AppearanceMode = "system" | "light" | "dark";
 
 const APPEARANCE_MODE_OPTIONS = [
-  { mode: "system" as const, label: "System", Icon: SunMoon },
-  { mode: "light" as const, label: "Light", Icon: Sun },
-  { mode: "dark" as const, label: "Dark", Icon: Moon },
+  { mode: "system" as const, label: "跟随系统", Icon: SunMoon },
+  { mode: "light" as const, label: "浅色", Icon: Sun },
+  { mode: "dark" as const, label: "深色", Icon: Moon },
 ] as const;
 
 // Reveal/hide motion for the accent picker: a small translate + opacity fade.
@@ -637,8 +637,8 @@ function ThemeSettingsCard() {
       data-testid="settings-theme"
     >
       <SettingsSectionHeader
-        title="Appearance"
-        description="Choose how Buzz looks and feels."
+        title="外观"
+        description="自定义 Buzz 的界面视觉与主题风格。"
       />
 
       <SettingsOptionGroupList>
@@ -657,10 +657,10 @@ function ThemeSettingsCard() {
           }
           title={
             <>
-              Theme
+              主题
               {showCommunityScope ? (
                 <span className="ml-1 font-normal text-muted-foreground">
-                  (per community)
+                  (按社区)
                 </span>
               ) : null}
             </>
@@ -668,17 +668,17 @@ function ThemeSettingsCard() {
         >
           <SettingsOptionRow data-testid="appearance-color-mode-row">
             <div className="min-w-0">
-              <p className="text-sm font-medium">Color mode</p>
+              <p className="text-sm font-medium">颜色模式</p>
               <p
                 className="text-sm font-normal text-muted-foreground/70"
                 data-settings-subcopy
               >
-                Follow your system or choose a light or dark appearance.
+                跟随系统或选择浅色/深色外观。
               </p>
             </div>
             <SegmentedControl
               indicatorTestId="appearance-color-mode-indicator"
-              legend="Color mode"
+              legend="颜色模式"
               onValueChange={handleModeSelect}
               optionTestIdPrefix="appearance-mode"
               options={APPEARANCE_MODE_OPTIONS.map(({ mode, label, Icon }) => ({
@@ -693,12 +693,12 @@ function ThemeSettingsCard() {
 
           <SettingsOptionRow data-testid="theme-style-row">
             <div className="min-w-0">
-              <p className="text-sm font-medium">Theme style</p>
+              <p className="text-sm font-medium">主题风格</p>
               <p
                 className="text-sm font-normal text-muted-foreground/70"
                 data-settings-subcopy
               >
-                Choose the colors used throughout Buzz.
+                选择 Buzz 全局使用的主题配色。
               </p>
             </div>
             <button
@@ -788,7 +788,7 @@ function ThemeSettingsCard() {
 
         <SettingsOptionGroup
           data-testid="appearance-preferences-card"
-          title="Preferences"
+          title="偏好设置"
         >
           <ConversationDisplaySettings />
           <LinkPreviewStyleSetting />

@@ -71,22 +71,22 @@ type SearchHitContextLabel = {
 function formatRelativeTime(unixSeconds: number) {
   const diff = Math.floor(Date.now() / 1_000) - unixSeconds;
   if (diff < 60) {
-    return "just now";
+    return "刚刚";
   }
 
   if (diff < 60 * 60) {
-    return `${Math.floor(diff / 60)}m ago`;
+    return `${Math.floor(diff / 60)} 分钟前`;
   }
 
   if (diff < 60 * 60 * 24) {
-    return `${Math.floor(diff / (60 * 60))}h ago`;
+    return `${Math.floor(diff / (60 * 60))} 小时前`;
   }
 
   if (diff < 60 * 60 * 24 * 7) {
-    return `${Math.floor(diff / (60 * 60 * 24))}d ago`;
+    return `${Math.floor(diff / (60 * 60 * 24))} 天前`;
   }
 
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat("zh-CN", {
     month: "short",
     day: "numeric",
   }).format(new Date(unixSeconds * 1_000));
@@ -183,7 +183,7 @@ function getSearchHitContextLabel(
   if (channel?.channelType === "dm") {
     return {
       channelLabel: null,
-      text: "Direct message",
+      text: "私信",
     };
   }
 
@@ -192,10 +192,10 @@ function getSearchHitContextLabel(
   return {
     channelLabel: channelName,
     text: channelName
-      ? `${isThread ? "Thread" : "Message"} in`
+      ? `${isThread ? "话题位于" : "消息位于"}`
       : isThread
-        ? "Thread"
-        : "Message",
+        ? "话题"
+        : "消息",
   };
 }
 
@@ -218,17 +218,17 @@ function getResultSectionKey(result: SearchResult): SearchResultSectionKey {
 function getSectionTitle(sectionKey: SearchResultSectionKey) {
   switch (sectionKey) {
     case "channels":
-      return "Channels";
+      return "频道";
     case "direct-messages":
-      return "Direct messages";
+      return "私信";
     case "people":
-      return "People";
+      return "成员";
     case "agents":
-      return "Agents";
+      return "智能体";
     case "messages":
-      return "Most relevant";
+      return "最相关结果";
     case "actions":
-      return "Actions";
+      return "快捷操作";
   }
 }
 
@@ -447,7 +447,7 @@ export function TopbarSearch({
         kind: "action",
         action: {
           id: "browse-channels",
-          title: "Browse channels",
+          title: "浏览频道",
         },
       });
     }
@@ -457,7 +457,7 @@ export function TopbarSearch({
         kind: "action",
         action: {
           id: "create-channel",
-          title: "Create a new channel",
+          title: "创建新频道",
         },
       });
     }
@@ -467,7 +467,7 @@ export function TopbarSearch({
         kind: "action",
         action: {
           id: "create-agent",
-          title: "Create a new agent",
+          title: "创建新智能体",
         },
       });
     }
@@ -831,12 +831,12 @@ export function TopbarSearch({
             currentChannelSearchAction ? "pb-5" : "py-5",
           )}
         >
-          <p>No recent activity yet.</p>
+          <p>暂无近期活动。</p>
         </div>
       </div>
     ) : (
       <div
-        aria-label="Recent activity"
+        aria-label="近期活动"
         className="max-h-96 overflow-y-auto"
         role="listbox"
       >
@@ -850,7 +850,7 @@ export function TopbarSearch({
                 {suggestedResults.length > 0 ? (
                   <div>
                     <div className={SEARCH_SECTION_TITLE_CLASS}>
-                      Recent activity
+                      近期活动
                     </div>
                     {suggestedResults.map((result) =>
                       renderSearchResultRow(result, resultIndex++),
@@ -859,7 +859,7 @@ export function TopbarSearch({
                 ) : null}
                 {suggestionActionResults.length > 0 ? (
                   <div>
-                    <div className={SEARCH_SECTION_TITLE_CLASS}>Actions</div>
+                    <div className={SEARCH_SECTION_TITLE_CLASS}>快捷操作</div>
                     {suggestionActionResults.map((result) =>
                       renderSearchResultRow(result, resultIndex++),
                     )}
@@ -898,15 +898,14 @@ export function TopbarSearch({
           currentChannelSearchAction ? "pb-5" : "py-5",
         )}
       >
-        No {scopeChannel ? "messages" : "matches"} for{" "}
-        <span className="font-semibold">{trimmedQuery}</span>
+        未找到与 <span className="font-semibold">{trimmedQuery}</span> 相关的{scopeChannel ? "消息" : "结果"}
         {scopeLabel ? (
           <>
             {" "}
-            in <span className="font-semibold">{scopeLabel}</span>
+            （在 <span className="font-semibold">{scopeLabel}</span> 中）
           </>
         ) : null}
-        .
+        。
       </p>
     </div>
   ) : (
@@ -925,7 +924,7 @@ export function TopbarSearch({
     <div className={cn("relative", className)}>
       <Dialog open={isOpen} onOpenChange={handleSearchOpenChange}>
         <button
-          aria-label="Search everything"
+          aria-label="搜索全部内容"
           className={
             isIconVariant
               ? "group/search flex size-6 items-center justify-center rounded p-1 text-sidebar-foreground/50 transition-colors hover:bg-sidebar-border/35 hover:text-sidebar-foreground focus-visible:bg-sidebar-border/35 focus-visible:text-sidebar-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-sidebar-ring"
@@ -934,7 +933,7 @@ export function TopbarSearch({
           data-testid="open-search"
           onClick={() => openSearchDialog(null)}
           ref={triggerRef}
-          title="Search everything"
+          title="搜索全部内容"
           type="button"
         >
           <Search
@@ -954,7 +953,7 @@ export function TopbarSearch({
                     : "text-sidebar-foreground/55",
                 )}
               >
-                {query || "Search everything"}
+                {query || "搜索全部内容"}
               </span>
               <kbd className="shrink-0 text-2xs text-sidebar-foreground/45">
                 &#x2318;K
@@ -977,7 +976,7 @@ export function TopbarSearch({
           showCloseButton={false}
         >
           <DialogTitle className="sr-only">
-            {scopeLabel ? `Search in ${scopeLabel}` : "Search everything"}
+            {scopeLabel ? `在 ${scopeLabel} 中搜索` : "搜索全部内容"}
           </DialogTitle>
           <SearchDialogInputRow
             inputRef={dialogInputRef}

@@ -38,9 +38,9 @@ export function CommunityInviteDialog({
         data-testid="community-invite-dialog"
       >
         <DialogHeader>
-          <DialogTitle>Invite to community</DialogTitle>
+          <DialogTitle>邀请加入社区</DialogTitle>
           <DialogDescription>
-            Add someone directly or share a link they can use to join.
+            直接添加成员，或分享链接供其加入。
           </DialogDescription>
         </DialogHeader>
 
@@ -48,7 +48,7 @@ export function CommunityInviteDialog({
           <DirectAddMemberForm
             isOwner={isOwner}
             showLabel={false}
-            submitLabel="Invite"
+            submitLabel="邀请"
           />
         </section>
 
@@ -58,7 +58,7 @@ export function CommunityInviteDialog({
         >
           <Separator className="bg-input/40" />
           <span className="absolute left-1/2 -translate-x-1/2 bg-background px-3 text-sm text-muted-foreground">
-            Or, copy a link
+            或者，复制邀请链接
           </span>
         </div>
 

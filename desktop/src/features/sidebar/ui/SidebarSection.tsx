@@ -100,7 +100,7 @@ function UnreadDotBadge({
 }
 
 function formatAgentCount(count: number) {
-  return `${count} ${count === 1 ? "agent" : "agents"}`;
+  return `${count} 位智能体`;
 }
 
 export function formatWorkingTooltip(
@@ -109,15 +109,15 @@ export function formatWorkingTooltip(
   const leadName = summary.agentNames?.[0];
 
   if (!leadName) {
-    return `${formatAgentCount(summary.agentCount)} working`;
+    return `${formatAgentCount(summary.agentCount)} 正在工作中`;
   }
 
   const remainingAgentCount = summary.agentCount - 1;
   if (remainingAgentCount <= 0) {
-    return `${leadName} working`;
+    return `${leadName} 正在工作中`;
   }
 
-  return `${leadName} and ${formatAgentCount(remainingAgentCount)} working`;
+  return `${leadName} 及其他 ${formatAgentCount(remainingAgentCount)} 正在工作中`;
 }
 
 function ChannelWorkingBadge({
@@ -504,7 +504,7 @@ export function SidebarSection({
                     ) : null}
                     {channel.channelType === "dm" && onHideDm ? (
                       <button
-                        aria-label="Close direct message"
+                        aria-label="关闭私信会话"
                         className={cn(
                           "absolute right-1 top-1/2 z-10 -translate-y-1/2 after:absolute after:-inset-2 after:md:hidden group-data-[collapsible=icon]:hidden",
                           SIDEBAR_ROW_ICON_ACTION_CLASS,

@@ -74,11 +74,11 @@ export function resolveAutomaticPresenceStatus(
 export function getPresenceLabel(status: PresenceStatus) {
   switch (status) {
     case "online":
-      return "Online";
+      return "在线";
     case "away":
-      return "Away";
+      return "离开";
     case "offline":
-      return "Offline";
+      return "离线";
   }
 }
 

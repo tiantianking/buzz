@@ -69,7 +69,7 @@ export function AddCommunityDialog({
       });
       if (!started) {
         setJoinError(
-          "Finish connecting the community already in progress, then try again.",
+          "请先完成正在进行的社区连接，然后再试。",
         );
         return;
       }
@@ -80,17 +80,17 @@ export function AddCommunityDialog({
 
   const title =
     mode === "create"
-      ? "Create a new community"
+      ? "创建新社区"
       : mode === "join"
-        ? "Join an existing community"
-        : "Add community";
+        ? "加入既有社区"
+        : "添加社区";
 
   const description =
     mode === "create"
-      ? "Opens Builderlab in your browser."
+      ? "将在浏览器中打开 Builderlab。"
       : mode === "join"
-        ? "Use the community URL or invite link you received."
-        : "Create a new community or join one you already have.";
+        ? "使用你收到的社区 URL 或邀请链接。"
+        : "创建新社区或加入你已有的社区。";
 
   return (
     <Dialog
@@ -108,7 +108,7 @@ export function AddCommunityDialog({
           <div className="flex min-w-0 items-center gap-2">
             {mode !== "choose" ? (
               <button
-                aria-label="Back to add community options"
+                aria-label="返回添加社区选项"
                 className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors duration-150 ease-out hover:bg-accent hover:text-accent-foreground focus:outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
                 data-testid="add-community-back"
                 onClick={() => {
@@ -143,10 +143,10 @@ export function AddCommunityDialog({
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-sm font-medium text-foreground">
-                    Create a new community
+                    创建新社区
                   </span>
                   <span className="mt-0.5 block text-xs leading-5 text-muted-foreground">
-                    Claim a Buzz address for your team.
+                    为你的团队申领一个 Buzz 地址。
                   </span>
                 </span>
                 <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground/60" />
@@ -163,10 +163,10 @@ export function AddCommunityDialog({
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-sm font-medium text-foreground">
-                    Join an existing community
+                    加入既有社区
                   </span>
                   <span className="mt-0.5 block text-xs leading-5 text-muted-foreground">
-                    Use a community URL or invite link.
+                    使用社区 URL 或邀请链接。
                   </span>
                 </span>
                 <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground/60" />

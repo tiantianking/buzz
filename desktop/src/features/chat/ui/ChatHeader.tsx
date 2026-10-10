@@ -109,9 +109,9 @@ export function ChatHeader({
 
     try {
       await writeTextToClipboard(value);
-      toast.success("Channel name copied");
+      toast.success("频道名称已复制");
     } catch {
-      toast.error("Failed to copy channel name");
+      toast.error("复制频道名称失败");
     }
   }
 
@@ -148,11 +148,11 @@ export function ChatHeader({
             </h1>
             {titleAdornment}
             <Button
-              aria-label={`Copy channel name: ${title}`}
+              aria-label={`复制频道名称：${title}`}
               className="h-6 w-6 shrink-0 opacity-0 text-muted-foreground transition-opacity hover:text-foreground focus-visible:opacity-100 group-hover/title:opacity-100"
               onClick={() => void handleCopyTitle()}
               size="icon-xs"
-              title="Copy channel name"
+              title="复制频道名称"
               type="button"
               variant="ghost"
             >

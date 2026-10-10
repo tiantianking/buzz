@@ -43,7 +43,7 @@ function formatDisplayName(member: RelayMember, displayName?: string | null) {
   ) {
     return trimmedDisplayName;
   }
-  return member.role === "owner" ? "Community owner" : "Unnamed member";
+  return member.role === "owner" ? "社区创建者" : "未命名成员";
 }
 
 function npubFromPubkey(pubkey: string): string | null {
@@ -88,6 +88,12 @@ function HoverMemberIdentity({
   );
 }
 
+const RELAY_ROLE_NAMES: Record<string, string> = {
+  owner: "创建者",
+  admin: "管理员",
+  member: "成员",
+};
+
 function RelayMemberRow({
   currentRole,
   currentPubkey,
@@ -125,7 +131,7 @@ function RelayMemberRow({
       toast.error(
         error instanceof Error
           ? error.message
-          : "Couldn’t update this community member.",
+          : "无法更新此社区成员。",
       );
     }
   }
@@ -137,7 +143,7 @@ function RelayMemberRow({
     >
       <UserProfilePopover
         pubkey={member.pubkey}
-        triggerAriaLabel={`Open profile for ${displayName}`}
+        triggerAriaLabel={`打开 ${displayName} 的资料`}
         triggerElement="span"
       >
         <ProfileAvatar
@@ -164,17 +170,17 @@ function RelayMemberRow({
           className="flex items-center gap-1.5 text-xs text-muted-foreground/70"
           data-settings-subcopy
         >
-          <span className="shrink-0 capitalize">{member.role}</span>
+          <span className="shrink-0">{RELAY_ROLE_NAMES[member.role] ?? member.role}</span>
           <span aria-hidden="true" className="shrink-0">
             ·
           </span>
-          <span className="shrink-0">Added {formatDate(member.createdAt)}</span>
+          <span className="shrink-0">{formatDate(member.createdAt)} 加入</span>
           {isSelf ? (
             <>
               <span aria-hidden="true" className="shrink-0">
                 ·
               </span>
-              <span className="shrink-0">You</span>
+              <span className="shrink-0">你自己</span>
             </>
           ) : null}
         </div>
@@ -184,7 +190,7 @@ function RelayMemberRow({
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button
-              aria-label={`Actions for ${displayName}`}
+              aria-label={`${displayName} 的操作`}
               data-testid={`relay-member-actions-${member.pubkey}`}
               disabled={isBusy}
               size="icon"
@@ -203,11 +209,11 @@ function RelayMemberRow({
                         pubkey: member.pubkey,
                         role: "admin",
                       }),
-                    "Made community admin",
+                    "已设为社区管理员",
                   )
                 }
               >
-                Make admin
+                设为管理员
               </DropdownMenuItem>
             ) : null}
             {canDemote ? (
@@ -219,11 +225,11 @@ function RelayMemberRow({
                         pubkey: member.pubkey,
                         role: "member",
                       }),
-                    "Made community member",
+                    "已设为社区成员",
                   )
                 }
               >
-                Make member
+                设为成员
               </DropdownMenuItem>
             ) : null}
             {canRemove && (canPromote || canDemote) ? (
@@ -235,11 +241,11 @@ function RelayMemberRow({
                 onClick={() =>
                   void mutateWithToast(
                     () => removeMutation.mutateAsync(member.pubkey),
-                    "Removed community member",
+                    "已移除社区成员",
                   )
                 }
               >
-                Remove from community
+                从社区中移除
               </DropdownMenuItem>
             ) : null}
           </DropdownMenuContent>
@@ -295,7 +301,7 @@ export function CommunityMembersSettingsCard({
     return (
       <section className="min-w-0" data-testid="settings-community-members">
         <p className="text-sm text-muted-foreground">
-          Checking invite permissions…
+          正在检查邀请权限…
         </p>
       </section>
     );
@@ -313,17 +319,17 @@ export function CommunityMembersSettingsCard({
             data-testid="community-invite-dialog-trigger"
             onClick={() => setInviteDialogOpen(true)}
           >
-            Invite to community
+            邀请加入社区
           </Button>
         }
-        title="Invites"
-        description="Manage members and community access."
+        title="邀请"
+        description="管理成员及社区访问权限。"
       />
 
       <SettingsOptionGroup
         title={
           <>
-            Members
+            成员
             {members.length > 0 ? (
               <span className="ml-1.5 font-normal">{members.length}</span>
             ) : null}
@@ -339,7 +345,7 @@ export function CommunityMembersSettingsCard({
               className="w-full rounded-lg border border-border/70 bg-background py-2 pl-9 pr-3 text-sm placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
               data-testid="community-members-search"
               onChange={(event) => setSearch(event.target.value)}
-              placeholder="Search members"
+              placeholder="搜索成员"
               spellCheck={false}
               type="text"
               value={search}
@@ -354,15 +360,15 @@ export function CommunityMembersSettingsCard({
 
           {membersQuery.isLoading ? (
             <p className="py-3 text-sm text-muted-foreground">
-              Loading community members…
+              正在加载社区成员…
             </p>
           ) : members.length === 0 ? (
             <p className="rounded-lg border border-dashed border-border/70 px-3 py-6 text-center text-sm text-muted-foreground">
-              No community members yet.
+              暂无社区成员。
             </p>
           ) : filteredMembers.length === 0 ? (
             <p className="rounded-lg border border-dashed border-border/70 px-3 py-6 text-center text-sm text-muted-foreground">
-              No members match your search.
+              没有匹配搜索的成员。
             </p>
           ) : (
             <VirtualizedList

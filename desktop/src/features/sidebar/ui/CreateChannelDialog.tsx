@@ -54,7 +54,7 @@ export function CreateChannelDialog({
     onCreated: () => onOpenChange(false),
   });
 
-  const kindLabel = channelKind === "forum" ? "forum" : "channel";
+  const kindLabel = channelKind === "forum" ? "论坛" : "频道";
 
   return (
     <Dialog
@@ -70,12 +70,12 @@ export function CreateChannelDialog({
         data-testid={testId}
         footerClassName="border-t-0 pt-0"
         headerClassName="pb-2"
-        title={title ?? `Create a new ${kindLabel}`}
+        title={title ?? `创建新${kindLabel}`}
         description={
           description ??
           (channelKind === "forum"
-            ? "Forums organize threaded discussions around a topic."
-            : "Channels are real-time streams for team conversation.")
+            ? "论坛用于围绕特定主题组织话题式讨论。"
+            : "频道是用于团队实时交流的沟通空间。")
         }
         footer={<CreateChannelFormFooter form={form} />}
       >

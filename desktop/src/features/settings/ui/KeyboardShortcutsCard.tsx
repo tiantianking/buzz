@@ -32,19 +32,29 @@ function KeyCombo({ shortcut }: { shortcut: KeyboardShortcut }) {
   );
 }
 
+const CATEGORY_TITLES: Record<string, string> = {
+  Navigation: "导航浏览",
+  Messages: "消息会话",
+  Formatting: "文本格式",
+  Zoom: "视图缩放",
+};
+
 export function KeyboardShortcutsCard() {
   const categories = getShortcutsByCategory();
 
   return (
     <section className="min-w-0" data-testid="settings-shortcuts">
       <SettingsSectionHeader
-        title="Keyboard shortcuts"
-        description="All available keyboard shortcuts. Shortcuts are read-only."
+        title="键盘快捷键"
+        description="所有可用的快捷键列表。快捷键目前为系统预设。"
       />
 
       <SettingsOptionGroupList>
         {[...categories.entries()].map(([category, shortcuts]) => (
-          <SettingsOptionGroup key={category} title={category}>
+          <SettingsOptionGroup
+            key={category}
+            title={CATEGORY_TITLES[category] ?? category}
+          >
             {shortcuts.map((shortcut) => (
               <SettingsOptionRow
                 className="min-h-12 px-3 py-2"

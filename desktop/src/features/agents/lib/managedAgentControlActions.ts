@@ -35,14 +35,14 @@ export function isManagedAgentActive(agent: Pick<ManagedAgent, "status">) {
 
 export function getManagedAgentPrimaryActionLabel(agent: ManagedAgent) {
   if (agent.backend.type === "provider") {
-    return isManagedAgentActive(agent) ? "Shutdown" : "Deploy";
+    return isManagedAgentActive(agent) ? "关闭" : "部署";
   }
 
   if (isManagedAgentActive(agent)) {
-    return "Stop";
+    return "停止";
   }
 
-  return "Start agent";
+  return "启动智能体";
 }
 
 export function resolveManagedAgentChannelId(

@@ -124,7 +124,7 @@ export function PrivateKeyBackupRow() {
     <>
       <div className="px-4 py-3" data-testid="profile-private-key-row">
         <div className="flex items-center justify-between gap-4">
-          <p className="text-sm font-medium">Private key</p>
+          <p className="text-sm font-medium">私钥</p>
           <div className="flex shrink-0 items-center gap-2">
             {backupAvailable ? (
               <Button
@@ -137,11 +137,11 @@ export function PrivateKeyBackupRow() {
                 {availableUntil !== null ? (
                   <BackupAvailabilityFill availableUntil={availableUntil} />
                 ) : null}
-                <span className="relative z-10">Download backup</span>
+                <span className="relative z-10">下载备份</span>
               </Button>
             ) : null}
             <Button
-              aria-label={isOpen ? "Hide private key" : "Reveal private key"}
+              aria-label={isOpen ? "隐藏私钥" : "显示私钥"}
               className="rounded-full"
               data-testid="profile-private-key-toggle"
               onClick={() => void handleReveal()}
@@ -151,12 +151,12 @@ export function PrivateKeyBackupRow() {
               {isOpen ? (
                 <>
                   <EyeOff className="h-4 w-4 shrink-0" />
-                  Hide
+                  隐藏
                 </>
               ) : (
                 <>
                   <Eye className="h-4 w-4 shrink-0" />
-                  Reveal
+                  查看
                 </>
               )}
             </Button>
@@ -165,7 +165,7 @@ export function PrivateKeyBackupRow() {
         {isOpen ? (
           <div className="mt-2">
             {isLoading ? (
-              <p className="text-sm text-muted-foreground">Loading…</p>
+              <p className="text-sm text-muted-foreground">加载中…</p>
             ) : loadError ? (
               <p className="text-sm text-destructive">{loadError}</p>
             ) : nsec ? (
@@ -173,13 +173,13 @@ export function PrivateKeyBackupRow() {
                 actions={[
                   {
                     icon: <Download aria-hidden="true" />,
-                    label: "Create backup",
+                    label: "创建备份",
                     onSelect: handleCreateBackup,
                     testId: "private-key-create-backup",
                   },
                   {
                     icon: <ShieldCheck aria-hidden="true" />,
-                    label: "Test backup",
+                    label: "测试备份",
                     onSelect: () => setTestOpen(true),
                     testId: "private-key-test-backup",
                   },
@@ -194,10 +194,9 @@ export function PrivateKeyBackupRow() {
       <Dialog onOpenChange={handleTestOpenChange} open={testOpen}>
         <DialogContent className="max-w-lg" data-testid="backup-test-dialog">
           <DialogHeader className="pr-8">
-            <DialogTitle>Test a key backup</DialogTitle>
+            <DialogTitle>测试密钥备份</DialogTitle>
             <DialogDescription>
-              Confirm that a backup file and its password can unlock an
-              identity.
+              验证备份文件及其密码是否能够顺利解锁身份。
             </DialogDescription>
           </DialogHeader>
           <BackupTestFlow
@@ -205,8 +204,7 @@ export function PrivateKeyBackupRow() {
             progress={testProgress}
           />
           <p className="text-xs leading-5 text-muted-foreground">
-            Backups use the standard NIP-49 format, so this works for backups
-            from compatible Nostr apps too.
+            备份采用标准 NIP-49 格式，兼容其他 Nostr 客户端导出的备份。
           </p>
         </DialogContent>
       </Dialog>

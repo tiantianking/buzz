@@ -81,13 +81,13 @@ function IdentityRow({
           data-testid={`copy-${testId}`}
           onClick={async () => {
             await writeTextToClipboard(copyValue);
-            toast.success("Copied to clipboard");
+            toast.success("已复制到剪贴板");
           }}
-          title={`Copy ${label}`}
+          title={`复制 ${label}`}
           type="button"
         >
           <Copy className="h-4 w-4 shrink-0" />
-          Copy
+          复制
         </button>
       ) : null}
     </div>
@@ -108,8 +108,8 @@ function EditProfileMetadataButton({
   isEditing: boolean;
 }) {
   const Icon = isEditing ? Check : Pencil;
-  const actionLabel = isEditing ? "Done" : "Edit";
-  const accessibleLabel = isEditing ? `Done editing ${label}` : `Edit ${label}`;
+  const actionLabel = isEditing ? "完成" : "编辑";
+  const accessibleLabel = isEditing ? `完成编辑 ${label}` : `编辑 ${label}`;
 
   return (
     <button
@@ -302,12 +302,12 @@ export function ProfileSettingsCard({
     nextDisplayName ||
     profile?.displayName ||
     fallbackDisplayName ||
-    "Your profile";
+    "个人资料";
   // Identity details show and copy the full canonical npub; a key that
   // cannot be encoded renders the neutral label and is never copyable.
   const identityNpub = canonicalNpub(profile?.pubkey ?? currentPubkey ?? "");
   const resolvedPubkey = identityNpub ?? UNAVAILABLE_KEY_LABEL;
-  const nip05Handle = profile?.nip05Handle ?? "Not set";
+  const nip05Handle = profile?.nip05Handle ?? "未设置";
   const emojiAvatarPreview = React.useMemo(
     () => parseEmojiAvatarDataUrl(avatarUrlDraft),
     [avatarUrlDraft],
@@ -406,7 +406,7 @@ export function ProfileSettingsCard({
     setDisplayNameDraft(updatePayload.displayName ?? currentDisplayName);
     setAvatarUrlDraft(updatePayload.avatarUrl ?? currentAvatarUrl);
     setAboutDraft(updatePayload.about ?? currentAbout);
-    toast.success("Profile saved");
+    toast.success("个人资料已保存");
     return true;
   }, [
     canSave,
@@ -489,8 +489,8 @@ export function ProfileSettingsCard({
     >
       <div>
         <SettingsSectionHeader
-          title="Profile"
-          description="Update how your name, avatar, and bio appear across Buzz."
+          title="个人资料"
+          description="修改您在 Buzz 中的昵称、头像和个人简介。"
         />
 
         <div className="space-y-3">
@@ -565,8 +565,8 @@ export function ProfileSettingsCard({
                                 aria-expanded={isAvatarEditorOpen}
                                 aria-label={
                                   isAvatarEditorSaving
-                                    ? "Saving profile photo"
-                                    : "Edit profile photo"
+                                    ? "正在保存头像"
+                                    : "编辑头像"
                                 }
                                 className={avatarEditButtonClassName}
                                 data-testid="profile-avatar-edit"
@@ -574,14 +574,14 @@ export function ProfileSettingsCard({
                                 onClick={openAvatarEditor}
                                 title={
                                   isAvatarEditorSaving
-                                    ? "Saving profile photo"
-                                    : "Edit profile photo"
+                                    ? "正在保存头像"
+                                    : "编辑头像"
                                 }
                                 type="button"
                               >
                                 {isAvatarEditorSaving && !isAvatarEditorOpen ? (
                                   <Spinner
-                                    aria-label="Saving avatar"
+                                    aria-label="正在保存头像"
                                     className="h-4 w-4 border-2"
                                   />
                                 ) : (
@@ -682,13 +682,13 @@ export function ProfileSettingsCard({
                             <EditProfileMetadataButton
                               disabled={updateProfileMutation.isPending}
                               isEditing={isEditingProfileMetadata}
-                              label="profile info"
+                              label="个人资料"
                               onClick={handleProfileMetadataEdit}
                               testId="profile-metadata-edit"
                             />
                           }
                           data-testid="profile-metadata-card"
-                          title="Profile info"
+                          title="个人资料信息"
                         >
                           <div className="flex min-h-16 items-center gap-4 px-4 py-3">
                             <div className="min-w-0 flex-1 space-y-1">
@@ -696,7 +696,7 @@ export function ProfileSettingsCard({
                                 className="block text-sm font-medium"
                                 htmlFor="profile-display-name"
                               >
-                                Display name
+                                显示名称
                               </label>
                               {isEditingProfileMetadata ? (
                                 <Input
@@ -707,7 +707,7 @@ export function ProfileSettingsCard({
                                   onChange={(event) =>
                                     setDisplayNameDraft(event.target.value)
                                   }
-                                  placeholder="Display name"
+                                  placeholder="显示名称"
                                   ref={displayNameInputRef}
                                   value={displayNameDraft}
                                 />
@@ -715,9 +715,9 @@ export function ProfileSettingsCard({
                                 <p
                                   className="min-w-0 truncate text-sm text-muted-foreground"
                                   data-testid="profile-display-name-value"
-                                  title={displayNameDraft || "Not set"}
+                                  title={displayNameDraft || "未设置"}
                                 >
-                                  {displayNameDraft || "Not set"}
+                                  {displayNameDraft || "未设置"}
                                 </p>
                               )}
                             </div>
@@ -729,7 +729,7 @@ export function ProfileSettingsCard({
                                 className="block text-sm font-medium"
                                 htmlFor="profile-about"
                               >
-                                Profile description
+                                个人简介
                               </label>
                               {isEditingProfileMetadata ? (
                                 <Textarea
@@ -740,7 +740,7 @@ export function ProfileSettingsCard({
                                   onChange={(event) =>
                                     setAboutDraft(event.target.value)
                                   }
-                                  placeholder="Profile description"
+                                  placeholder="个人简介"
                                   ref={aboutTextareaRef}
                                   value={aboutDraft}
                                 />
@@ -753,16 +753,16 @@ export function ProfileSettingsCard({
                                       : "text-muted-foreground/55",
                                   )}
                                   data-testid="profile-about-value"
-                                  title={aboutDraft || "Not set"}
+                                  title={aboutDraft || "未设置"}
                                 >
-                                  {aboutDraft || "Not set"}
+                                  {aboutDraft || "未设置"}
                                 </p>
                               )}
                             </div>
                           </div>
                         </SettingsOptionGroup>
 
-                        <SettingsOptionGroup title="Identity">
+                        <SettingsOptionGroup title="身份标识">
                           <details
                             className="group divide-y divide-border/55"
                             data-testid="profile-identity-card"
@@ -773,14 +773,13 @@ export function ProfileSettingsCard({
                             >
                               <div className="min-w-0">
                                 <p className="text-sm font-medium">
-                                  Identity details
+                                  身份详情
                                 </p>
                                 <p
                                   className="text-sm font-normal text-muted-foreground/70"
                                   data-settings-subcopy
                                 >
-                                  Your keypair and NIP-05 handle are fixed for
-                                  this device.
+                                  您的密钥对和 NIP-05 句柄在此设备上已绑定。
                                 </p>
                               </div>
                               <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-[color,transform] duration-150 ease-out group-open:rotate-180 group-hover/identity:text-foreground group-focus-visible/identity:text-foreground" />
@@ -791,13 +790,13 @@ export function ProfileSettingsCard({
                             >
                               <IdentityRow
                                 copyValue={identityNpub ?? undefined}
-                                label="Public key"
+                                label="公钥"
                                 testId="profile-pubkey"
                                 value={resolvedPubkey}
                               />
                               <IdentityRow
                                 copyValue={profile?.nip05Handle ?? undefined}
-                                label="NIP-05 handle"
+                                label="NIP-05 句柄"
                                 testId="profile-nip05"
                                 value={nip05Handle}
                               />
@@ -851,8 +850,7 @@ export function ProfileSettingsCard({
                 <div className="mx-auto w-full max-w-[576px] space-y-2">
                   {hasPendingClearRequest ? (
                     <p className="text-sm text-muted-foreground">
-                      Clearing existing profile fields is not supported yet.
-                      Blank display name and avatar values are ignored for now.
+                      暂不支持清空已有个人资料字段。空白的显示名称与头像将被忽略。
                     </p>
                   ) : null}
                 </div>

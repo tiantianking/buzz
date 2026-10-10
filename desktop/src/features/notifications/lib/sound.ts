@@ -35,14 +35,14 @@ export const SOUND_SLOTS = [
 export type SoundSlot = (typeof SOUND_SLOTS)[number];
 
 export const SLOT_LABELS: Record<SoundSlot, string> = {
-  dm: "Direct messages",
-  mention: "@Mentions",
-  thread_reply: "Thread replies",
-  needs_action: "Needs action",
-  job_accepted: "Agent: job accepted",
-  job_progress: "Agent: progress update",
-  job_result: "Agent: job result",
-  job_error: "Agent: job error",
+  dm: "私信消息",
+  mention: "@提及",
+  thread_reply: "话题回复",
+  needs_action: "待处理事项",
+  job_accepted: "智能体：已接收任务",
+  job_progress: "智能体：进度更新",
+  job_result: "智能体：任务结果",
+  job_error: "智能体：任务失败",
 };
 
 // The agent job protocol (kinds 43001-43006) is defined and queryable but
@@ -57,14 +57,14 @@ export const COMING_SOON_SLOTS: ReadonlySet<SoundSlot> = new Set([
 ]);
 
 export const SLOT_DESCRIPTIONS: Record<SoundSlot, string> = {
-  dm: "When someone messages you directly.",
-  mention: "When someone tags you in a channel.",
-  thread_reply: "When someone replies in a thread you follow or posted in.",
-  needs_action: "When an approval or reminder is waiting on you.",
-  job_accepted: "When an agent picks up a job.",
-  job_progress: "While an agent works through a job.",
-  job_result: "When an agent finishes a job.",
-  job_error: "When an agent job fails.",
+  dm: "当有人直接给你发送私信时。",
+  mention: "当有人在频道中 @ 提及你时。",
+  thread_reply: "当有人在你关注或发表过的话题中回复时。",
+  needs_action: "当有审批或提醒等待你处理时。",
+  job_accepted: "当智能体开始认领执行任务时。",
+  job_progress: "当智能体推进执行任务时。",
+  job_result: "当智能体完成任务时。",
+  job_error: "当智能体任务执行失败时。",
 };
 
 export const RECOMMENDED_SOUND_BY_SLOT: Record<SoundSlot, SoundName> = {

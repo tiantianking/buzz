@@ -26,7 +26,7 @@ export function ChannelHero({
 }) {
   const channelDescription = channel.description.trim();
   const description =
-    channelDescription || (onEdit ? "Add a description" : null);
+    channelDescription || (onEdit ? "添加描述" : null);
 
   return (
     <div
@@ -42,7 +42,7 @@ export function ChannelHero({
       </div>
       {channel.channelType !== "dm" && onEdit ? (
         <button
-          aria-label="Edit channel"
+          aria-label="编辑频道"
           className="group flex max-w-full flex-col items-center rounded-lg px-8 py-1 text-center focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
           data-testid="channel-management-edit"
           onClick={onEdit}

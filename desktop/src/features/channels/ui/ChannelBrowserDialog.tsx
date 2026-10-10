@@ -56,9 +56,9 @@ type BrowserTab = "all" | "joined" | "archived";
 type ChannelSort = ChannelSortMode | "members";
 
 const CHANNEL_SORT_OPTIONS: { label: string; value: ChannelSort }[] = [
-  { label: "Alphabetical", value: "alpha" },
-  { label: "Recent", value: "recent" },
-  { label: "Most members", value: "members" },
+  { label: "按名称排序", value: "alpha" },
+  { label: "按活跃时间", value: "recent" },
+  { label: "按成员数量", value: "members" },
 ];
 
 function BrowseState({
@@ -142,15 +142,15 @@ export function ChannelBrowserDialog({
   const isForumMode = channelTypeFilter === "forum";
   const canCreate = Boolean(onCreateChannel);
   const createKind = isForumMode ? "forum" : "stream";
-  const browseTitle = isForumMode ? "Add a forum" : "Browse channels";
+  const browseTitle = isForumMode ? "添加论坛" : "浏览频道";
   const searchPlaceholder = canCreate
     ? isForumMode
-      ? "Search or create a forum"
-      : "Search or create a channel"
+      ? "搜索或创建论坛"
+      : "搜索或创建频道"
     : isForumMode
-      ? "Search forums by name or description"
-      : "Search channels by name or description";
-  const entityLabel = isForumMode ? "forum" : "channel";
+      ? "按名称或描述搜索论坛"
+      : "按名称或描述搜索频道";
+  const entityLabel = isForumMode ? "论坛" : "频道";
 
   const noopCreate = React.useCallback(async () => {}, []);
   const createForm = useCreateChannelForm({
@@ -238,9 +238,9 @@ export function ChannelBrowserDialog({
 
   const selectedSortLabel =
     CHANNEL_SORT_OPTIONS.find((option) => option.value === sort)?.label ??
-    "Alphabetical";
+    "按名称排序";
 
-  const allTabLabel = isForumMode ? "All forums" : "All channels";
+  const allTabLabel = isForumMode ? "全部论坛" : "全部频道";
 
   // Whether an exact name match already exists — if so we don't offer to
   // create a duplicate, mirroring how you'd never make two "#general"s.
@@ -394,22 +394,22 @@ export function ChannelBrowserDialog({
       : undefined;
   const emptyTitle =
     deferredQuery.length > 0
-      ? `No ${entityLabel}s match your search`
+      ? `未找到匹配的${entityLabel}`
       : activeTab === "archived"
-        ? `No archived ${entityLabel}s`
+        ? `暂无已归档的${entityLabel}`
         : activeTab === "joined"
-          ? `No joined ${entityLabel}s`
-          : `No ${entityLabel}s to browse`;
+          ? `暂未加入任何${entityLabel}`
+          : `暂无可浏览的${entityLabel}`;
   const emptyDescription =
     deferredQuery.length > 0
       ? canCreate
-        ? `No ${entityLabel} by that name yet — create it to get started.`
-        : "Try a different name or keyword."
+        ? `尚未有名为该名称的${entityLabel} — 创建一个即可开始。`
+        : "请尝试不同的名称或关键词。"
       : activeTab === "archived"
-        ? `Archived ${entityLabel}s you have joined will appear here.`
+        ? `你已加入并归档的${entityLabel}将显示在此处。`
         : activeTab === "joined"
-          ? `${entityLabel[0].toUpperCase()}${entityLabel.slice(1)}s you join will appear here.`
-          : `All open ${entityLabel}s are available in the sidebar. Create a new ${entityLabel} to get started.`;
+          ? `你加入的${entityLabel}将显示在此处。`
+          : `所有公开的${entityLabel}均可在侧边栏中找到。创建一个新${entityLabel}即可开始。`;
 
   return (
     <Dialog onOpenChange={onOpenChange} open={open}>
@@ -527,7 +527,7 @@ export function ChannelBrowserDialog({
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Sort by</DropdownMenuLabel>
+                    <DropdownMenuLabel>排序方式</DropdownMenuLabel>
                     <DropdownMenuRadioGroup
                       onValueChange={(value) => {
                         setSort(value as ChannelSort);
@@ -589,7 +589,7 @@ export function ChannelBrowserDialog({
                       }}
                       value="joined"
                     >
-                      Joined
+                      已加入
                     </TabsTrigger>
                     <TabsTrigger
                       className="rounded-none border-b-2 border-transparent bg-transparent px-0 py-2 text-sm font-medium shadow-none transition-colors duration-150 ease-out data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none"
@@ -598,7 +598,7 @@ export function ChannelBrowserDialog({
                       }}
                       value="archived"
                     >
-                      Archived
+                      已归档
                     </TabsTrigger>
                   </TabsList>
                 </Tabs>
@@ -683,13 +683,13 @@ function CreateChannelRow({
       {hasQuery ? (
         <span className="min-w-0 text-sm">
           <span className="font-medium text-foreground">
-            Create {entityLabel}{" "}
+            创建{entityLabel}{" "}
           </span>
           <span className="font-semibold text-foreground">“{query}”</span>
         </span>
       ) : (
         <span className="min-w-0 text-sm font-medium text-foreground">
-          Create a new {entityLabel}
+          创建新{entityLabel}
         </span>
       )}
     </button>
@@ -713,7 +713,7 @@ function ChannelCreateView({
         <div className="flex items-center justify-between gap-4">
           <div className="flex min-w-0 items-center gap-2">
             <button
-              aria-label="Back to search"
+              aria-label="返回搜索"
               className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors duration-150 ease-out hover:bg-accent hover:text-accent-foreground focus:outline-hidden focus:ring-1 focus:ring-ring"
               data-testid="channel-browser-create-back"
               onClick={onBack}
@@ -722,17 +722,17 @@ function ChannelCreateView({
               <ArrowLeft className="h-4 w-4" />
             </button>
             <DialogTitle className="truncate">
-              {`New ${entityLabel}`}
+              {`新建${entityLabel}`}
             </DialogTitle>
           </div>
           <button
-            aria-label="Close"
+            aria-label="关闭"
             className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors duration-150 ease-out hover:bg-accent hover:text-accent-foreground focus:outline-hidden focus:ring-1 focus:ring-ring"
             onClick={onClose}
             type="button"
           >
             <X className="h-4 w-4" />
-            <span className="sr-only">Close</span>
+            <span className="sr-only">关闭</span>
           </button>
         </div>
       </DialogHeader>
@@ -767,9 +767,7 @@ function ChannelCard({
   onJoin?: () => void;
   onSelect: () => void;
 }) {
-  const memberLabel = `${channel.memberCount} ${
-    channel.memberCount === 1 ? "member" : "members"
-  }`;
+  const memberLabel = `${channel.memberCount} 位成员`;
 
   return (
     <div
@@ -798,7 +796,7 @@ function ChannelCard({
             </p>
             {channel.archivedAt ? (
               <Badge className="ml-1 shrink-0" variant="warning">
-                archived
+                已归档
               </Badge>
             ) : null}
           </div>
@@ -830,7 +828,7 @@ function ChannelCard({
           type="button"
           variant="default"
         >
-          {isJoining ? "Joining..." : "Join"}
+          {isJoining ? "加入中..." : "加入"}
         </Button>
       ) : null}
     </div>

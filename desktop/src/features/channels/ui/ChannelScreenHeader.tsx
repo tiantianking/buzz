@@ -87,11 +87,11 @@ export function ChannelScreenHeader({
   const terminalButton = activeChannel ? (
     <Button
       aria-label={
-        terminalPanel.mode === "closed" ? "Open Buzz Term" : "Hide Buzz Term"
+        terminalPanel.mode === "closed" ? "打开 Buzz 终端" : "隐藏 Buzz 终端"
       }
       onClick={toggleTerminalPanel}
       size="icon"
-      title="Buzz Term (⌘J)"
+      title="Buzz 终端 (⌘J)"
       type="button"
       variant={terminalPanel.mode === "closed" ? "outline" : "secondary"}
     >
@@ -108,7 +108,7 @@ export function ChannelScreenHeader({
           variant="default"
         >
           <LogIn className="mr-1.5 h-4 w-4" />
-          {isJoining ? "Joining…" : "Join"}
+          {isJoining ? "加入中…" : "加入"}
         </Button>
         {headerEndActions}
       </div>
@@ -156,7 +156,7 @@ export function ChannelScreenHeader({
             <UserProfilePopover
               pubkey={activeDmParticipant.pubkey}
               role={activeDmParticipant.isAgent ? "bot" : undefined}
-              triggerAriaLabel={`Open profile for ${activeChannelTitle}`}
+              triggerAriaLabel={`打开 ${activeChannelTitle} 的资料`}
               triggerElement="span"
             >
               <ProfileAvatarWithStatus
@@ -242,7 +242,7 @@ function DmHeaderParticipantStack({
         <UserProfilePopover
           key={participant.pubkey}
           pubkey={participant.pubkey}
-          triggerAriaLabel={`Open profile for ${participant.displayName}`}
+          triggerAriaLabel={`打开 ${participant.displayName} 的资料`}
           triggerElement="span"
           role={participant.isAgent ? "bot" : undefined}
         >

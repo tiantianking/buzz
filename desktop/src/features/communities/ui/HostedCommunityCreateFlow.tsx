@@ -104,7 +104,7 @@ export function HostedCommunityCreateFlow({
   const signIn = () => {
     const attempt = ++loginAttempt.current;
     signingIn.current = true;
-    setAction("Signing in…");
+    setAction("登录中…");
     setError(null);
     void startBuilderlabLogin()
       .then(async (nextAuth) => {
@@ -125,7 +125,7 @@ export function HostedCommunityCreateFlow({
   };
 
   const connectIdentity = () =>
-    run("Connecting identity…", async () => {
+    run("正在关联身份…", async () => {
       const response = await bindBuilderlabIdentity();
       if (response.error) {
         throw new Error(
@@ -141,7 +141,7 @@ export function HostedCommunityCreateFlow({
     });
 
   const signOut = () =>
-    run("Signing out…", async () => {
+    run("正在退出登录…", async () => {
       await clearBuilderlabAuth();
       setAuth(null);
       setIdentity(null);
@@ -175,7 +175,7 @@ export function HostedCommunityCreateFlow({
   );
 
   const switchToDeviceIdentity = () =>
-    run("Switching identity…", async () => {
+    run("正在切换身份…", async () => {
       const released = await deleteBuilderlabIdentity();
       if (released.error) {
         throw new Error(
@@ -247,7 +247,7 @@ export function HostedCommunityCreateFlow({
       atCommunityLimit
     )
       return;
-    void run("Creating community…", async () => {
+    void run("正在创建社区…", async () => {
       const available = await checkHostedCommunityName(normalizedName);
       if (available.error || !available.available) {
         setAvailability(false);
@@ -303,7 +303,7 @@ export function HostedCommunityCreateFlow({
     return (
       <div className="flex min-h-40 items-center justify-center" role="status">
         <LoaderCircle className="h-5 w-5 animate-spin text-muted-foreground" />
-        <span className="sr-only">Checking sign-in</span>
+        <span className="sr-only">正在检查登录状态</span>
       </div>
     );
   }
@@ -312,16 +312,15 @@ export function HostedCommunityCreateFlow({
     return (
       <div className="space-y-5">
         <p className="text-sm leading-6 text-muted-foreground">
-          Sign in with Builderlab to create and host a community. Buzz will open
-          your browser, then bring you back here.
+          使用 Builderlab 登录以创建和托管社区。Buzz 将在浏览器中打开登录页面，随后返回此处。
         </p>
         {errorBox}
         <div className="flex justify-end pt-1">
           <Button disabled={Boolean(action)} onClick={signIn} type="button">
-            {action === "Signing in…" ? (
+            {action === "登录中…" ? (
               <LoaderCircle className="h-4 w-4 animate-spin" />
             ) : null}
-            {action ?? "Continue to Builderlab"}
+            {action ?? "前往 Builderlab"}
             {action ? null : <ExternalLink className="h-4 w-4" />}
           </Button>
         </div>
@@ -333,8 +332,7 @@ export function HostedCommunityCreateFlow({
     return (
       <div className="space-y-5">
         <p className="text-sm leading-6 text-muted-foreground">
-          Connect this device’s Buzz identity to your Builderlab account. Your
-          private key stays on this device.
+          将此设备的 Buzz 身份连接到你的 Builderlab 账号。你的私钥将保留在当前设备上。
         </p>
         {errorBox}
         <div className="flex justify-end gap-2 pt-1">
@@ -344,7 +342,7 @@ export function HostedCommunityCreateFlow({
             type="button"
             variant="outline"
           >
-            Use a different account
+            使用其他账号
           </Button>
           <Button
             disabled={Boolean(action)}
@@ -352,7 +350,7 @@ export function HostedCommunityCreateFlow({
             type="button"
           >
             {action ? <LoaderCircle className="h-4 w-4 animate-spin" /> : null}
-            {action ?? "Connect and continue"}
+            {action ?? "连接并继续"}
           </Button>
         </div>
       </div>
@@ -363,15 +361,14 @@ export function HostedCommunityCreateFlow({
     return (
       <div className="space-y-5">
         <p className="text-sm leading-6 text-muted-foreground">
-          This Builderlab account uses a different Buzz identity. Switch it to
-          this device, or sign in with another account.
+          此 Builderlab 账号关联了不同的 Buzz 身份。请切换至当前设备，或使用其他账号登录。
         </p>
         <div className="rounded-xl bg-muted/40 px-4 py-3 font-mono text-xs text-muted-foreground">
           <p className="break-all">
-            Account: {boundNpub ?? UNAVAILABLE_KEY_LABEL}
+            账号: {boundNpub ?? UNAVAILABLE_KEY_LABEL}
           </p>
           <p className="mt-1 break-all">
-            This device: {localNpub ?? UNAVAILABLE_KEY_LABEL}
+            当前设备: {localNpub ?? UNAVAILABLE_KEY_LABEL}
           </p>
         </div>
         {errorBox}
@@ -382,7 +379,7 @@ export function HostedCommunityCreateFlow({
             type="button"
             variant="outline"
           >
-            Use a different account
+            使用其他账号
           </Button>
           <Button
             disabled={Boolean(action)}
@@ -390,7 +387,7 @@ export function HostedCommunityCreateFlow({
             type="button"
           >
             {action ? <LoaderCircle className="h-4 w-4 animate-spin" /> : null}
-            {action ?? "Use this device"}
+            {action ?? "使用此设备"}
           </Button>
         </div>
       </div>
@@ -398,16 +395,16 @@ export function HostedCommunityCreateFlow({
   }
 
   const feedback = atCommunityLimit
-    ? "You’ve reached your hosted community creation limit."
+    ? "你已达到托管社区创建上限。"
     : name && !validName
-      ? "Use lowercase letters, numbers, and single hyphens."
+      ? "请使用小写字母、数字和单个连字符。"
       : checkingName
-        ? "Checking availability…"
+        ? "正在检查可用性…"
         : availability === false
-          ? "That address is already taken."
+          ? "该地址已被占用。"
           : availability === true
-            ? "That address is available."
-            : "You can’t change this address after creating the community.";
+            ? "该地址可用。"
+            : "创建社区后将无法更改此地址。";
 
   return (
     <form className="space-y-5" onSubmit={create}>
@@ -416,7 +413,7 @@ export function HostedCommunityCreateFlow({
           className="text-sm font-medium text-foreground"
           htmlFor="hosted-community-create-name"
         >
-          Community address
+          社区地址
         </label>
         <div
           className={cn(
@@ -475,7 +472,7 @@ export function HostedCommunityCreateFlow({
           type="submit"
         >
           {action ? <LoaderCircle className="h-4 w-4 animate-spin" /> : null}
-          {action ?? "Create community"}
+          {action ?? "创建社区"}
         </Button>
       </div>
     </form>

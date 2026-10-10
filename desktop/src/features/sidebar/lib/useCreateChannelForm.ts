@@ -83,7 +83,7 @@ export function useCreateChannelForm({
   const templatesQuery = useChannelTemplatesQuery();
   const templates = templatesQuery.data ?? [];
 
-  const kindLabel = channelKind === "forum" ? "forum" : "channel";
+  const kindLabel = channelKind === "forum" ? "论坛" : "频道";
   React.useEffect(() => {
     if (!active) return;
 
@@ -167,7 +167,7 @@ export function useCreateChannelForm({
           setErrorMessage(
             error instanceof Error
               ? error.message
-              : `Failed to create ${kindLabel}.`,
+              : `创建${kindLabel}失败。`,
           );
         }
       })();

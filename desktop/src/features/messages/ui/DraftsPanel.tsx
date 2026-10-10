@@ -42,7 +42,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 
 const SENT_DRAFT_PREFIX = "sent:";
 const THREAD_DRAFT_PREFIX = "thread:";
-const UNKNOWN_CHANNEL_LABEL = "Unknown channel";
+const UNKNOWN_CHANNEL_LABEL = "未知频道";
 
 export type DraftListEntry = {
   draft: DraftState;
@@ -65,7 +65,7 @@ const UNKNOWN_DRAFT_SOURCE: DraftSource = {
   label: UNKNOWN_CHANNEL_LABEL,
 };
 
-const draftTimeFormatter = new Intl.DateTimeFormat("en-US", {
+const draftTimeFormatter = new Intl.DateTimeFormat("zh-CN", {
   month: "short",
   day: "numeric",
   hour: "numeric",
@@ -80,7 +80,7 @@ function parseDraftTime(value: string): number {
 export function formatDraftCreatedAt(draft: DraftState): string {
   const time = parseDraftTime(draft.createdAt);
   return time === 0
-    ? "Unknown time"
+    ? "未知时间"
     : draftTimeFormatter.format(new Date(time));
 }
 
@@ -120,12 +120,12 @@ export function getDraftPreview(draft: DraftState): string {
 
   const attachmentCount = draft.pendingImeta.length;
   if (attachmentCount === 1) {
-    return "1 attachment";
+    return "1 个附件";
   }
   if (attachmentCount > 1) {
-    return `${attachmentCount} attachments`;
+    return `${attachmentCount} 个附件`;
   }
-  return "Empty draft";
+  return "空草稿";
 }
 
 function resolveDraftSources({
@@ -312,17 +312,17 @@ export function SendConfirmDialog({
     >
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Send message</AlertDialogTitle>
+          <AlertDialogTitle>发送消息</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to send this message to {destination}?
+            确定要将此消息发送到 {destination} 吗？
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <Button onClick={onCancel} size="sm" type="button" variant="outline">
-            Cancel
+            取消
           </Button>
           <Button onClick={onConfirm} size="sm" type="button">
-            Send
+            发送
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
@@ -373,7 +373,7 @@ function DraftRow({
       data-testid={`home-draft-item-${entry.key}`}
     >
       <button
-        aria-label={`View draft in ${channelLabel}`}
+        aria-label={`在 ${channelLabel} 中查看草稿`}
         className="block w-full min-w-0 px-3 py-3 text-left disabled:cursor-default"
         onClick={onSelect}
         type="button"
@@ -398,7 +398,7 @@ function DraftRow({
                 className="shrink-0 rounded px-1 py-0.5 text-2xs font-medium text-destructive/70 ring-1 ring-destructive/30"
                 data-testid={`home-draft-orphaned-label-${entry.key}`}
               >
-                thread deleted
+                话题已删除
               </span>
             ) : null}
           </div>
@@ -420,10 +420,10 @@ function DraftRow({
               disabled={!canOpen}
               label={
                 canOpen
-                  ? "Open draft"
+                  ? "打开草稿"
                   : isOrphaned
-                    ? "Thread deleted"
-                    : "No channel link"
+                    ? "话题已删除"
+                    : "未关联频道"
               }
               onClick={() => onOpen(entry)}
             >
@@ -433,10 +433,10 @@ function DraftRow({
               disabled={!canSend}
               label={
                 canSend
-                  ? "Send message"
+                  ? "发送消息"
                   : isOrphaned
-                    ? "Thread deleted"
-                    : "No channel link"
+                    ? "话题已删除"
+                    : "未关联频道"
               }
               onClick={() => onSend(entry)}
             >
@@ -445,7 +445,7 @@ function DraftRow({
           </>
         )}
         <DraftRowActionButton
-          label="Delete draft"
+          label="删除草稿"
           onClick={() => onDelete(entry.key)}
         >
           <Trash2 className="h-4 w-4" />
@@ -636,7 +636,7 @@ export function DraftsPanel({
     return (
       <div className="flex h-full flex-col items-center justify-center gap-2 p-8 text-center">
         <FileText className="h-8 w-8 text-muted-foreground/50" />
-        <p className="text-sm text-muted-foreground">No drafts</p>
+        <p className="text-sm text-muted-foreground">暂无草稿</p>
       </div>
     );
   }
@@ -648,7 +648,7 @@ export function DraftsPanel({
         data-testid="home-inbox-drafts-list"
       >
         <h3 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          Drafts
+          草稿箱
         </h3>
         {items.map(({ entry, rootStatus, source }) => (
           <DraftRow

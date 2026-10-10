@@ -17,19 +17,19 @@ import { Input } from "@/shared/ui/input";
 import { Spinner } from "@/shared/ui/spinner";
 
 const TTL_OPTIONS: { label: string; value: number }[] = [
-  { label: "1 day", value: 24 * 60 * 60 },
-  { label: "3 days", value: 3 * 24 * 60 * 60 },
-  { label: "7 days", value: 7 * 24 * 60 * 60 },
-  { label: "30 days", value: 30 * 24 * 60 * 60 },
+  { label: "1 天", value: 24 * 60 * 60 },
+  { label: "3 天", value: 3 * 24 * 60 * 60 },
+  { label: "7 天", value: 7 * 24 * 60 * 60 },
+  { label: "30 天", value: 30 * 24 * 60 * 60 },
 ];
 
 const MAX_USE_OPTIONS: { label: string; value: number | null }[] = [
-  { label: "No limit", value: null },
-  { label: "1 use", value: 1 },
-  { label: "3 uses", value: 3 },
-  { label: "5 uses", value: 5 },
-  { label: "10 uses", value: 10 },
-  { label: "25 uses", value: 25 },
+  { label: "无限制", value: null },
+  { label: "1 次", value: 1 },
+  { label: "3 次", value: 3 },
+  { label: "5 次", value: 5 },
+  { label: "10 次", value: 10 },
+  { label: "25 次", value: 25 },
 ];
 
 export const DEFAULT_INVITE_TTL_SECS = TTL_OPTIONS[1].value;
@@ -65,24 +65,24 @@ export function InviteLinkSection({
   );
   const shouldReduceMotion = useReducedMotion();
   const ttlLabel =
-    TTL_OPTIONS.find((option) => option.value === ttlSecs)?.label ?? "3 days";
+    TTL_OPTIONS.find((option) => option.value === ttlSecs)?.label ?? "3 天";
   const maxUsesLabel =
     MAX_USE_OPTIONS.find((option) => option.value === maxUses)?.label ??
-    "No limit";
+    "无限制";
   const isGenerating = generationStatus === "generating";
   const hasGenerationFailed = generationStatus === "failed";
   const inviteSettingsKey = `${ttlSecs}:${maxUses ?? "no-limit"}`;
   const isWorking = isGenerating || copyStatus === "copying";
   const copyLabel = hasGenerationFailed
-    ? "Retry"
+    ? "重试"
     : copyStatus === "copied"
-      ? "Copied"
-      : "Copy link";
+      ? "已复制"
+      : "复制链接";
   const copyButtonWidth = isWorking
     ? "6.25rem"
     : copyStatus === "copied"
       ? "5.25rem"
-      : "4.5rem";
+      : "5rem";
   const copyButtonTransition = shouldReduceMotion
     ? { duration: 0 }
     : { duration: 0.12, ease: [0.77, 0, 0.175, 1] as const };
@@ -120,7 +120,7 @@ export function InviteLinkSection({
       }
       if (generationRequestId.current === requestId) {
         setGenerationStatus("failed");
-        toast.error("Couldn’t create an invite link.");
+        toast.error("无法创建邀请链接。");
       }
     }
   }, [inviteSettingsKey, maxUses, ttlSecs]);
@@ -143,10 +143,10 @@ export function InviteLinkSection({
     try {
       await writeTextToClipboard(inviteUrl);
       setCopyStatus("copied");
-      toast.success("Invite link copied");
+      toast.success("邀请链接已复制");
     } catch {
       setCopyStatus("idle");
-      toast.error("Couldn’t copy the invite link. Try again.");
+      toast.error("无法复制邀请链接。请重试。");
     }
   }
 
@@ -154,14 +154,14 @@ export function InviteLinkSection({
     <section data-testid="community-invite-link-section">
       <div className="relative">
         <Input
-          aria-label="Community invite link"
+          aria-label="社区邀请链接"
           className="h-11 pr-28 text-transparent caret-transparent selection:bg-transparent"
           data-testid="invite-link-url"
           disabled={isGenerating}
           placeholder={
             hasGenerationFailed
-              ? "Couldn’t create invite link"
-              : "Creating invite link…"
+              ? "无法创建邀请链接"
+              : "正在创建邀请链接…"
           }
           readOnly
           value={inviteUrl}
@@ -207,11 +207,11 @@ export function InviteLinkSection({
 
       <div className="mt-3 space-y-3">
         <div className="flex items-center justify-between gap-4">
-          <span className="text-sm font-medium">Expires after</span>
+          <span className="text-sm font-medium">有效期</span>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
-                aria-label="Choose invite expiry"
+                aria-label="选择邀请有效期"
                 className="h-8 shrink-0 gap-1.5 px-2 text-sm text-muted-foreground"
                 data-testid="invite-link-ttl-trigger"
                 disabled={isGenerating || copyStatus === "copying"}
@@ -242,11 +242,11 @@ export function InviteLinkSection({
           </DropdownMenu>
         </div>
         <div className="flex items-center justify-between gap-4">
-          <span className="text-sm font-medium">Limit number of uses</span>
+          <span className="text-sm font-medium">使用次数限制</span>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
-                aria-label="Choose maximum invite uses"
+                aria-label="选择最大使用次数"
                 className="h-8 shrink-0 gap-1.5 px-2 text-sm text-muted-foreground"
                 data-testid="invite-link-max-uses-trigger"
                 disabled={isGenerating || copyStatus === "copying"}

@@ -743,15 +743,15 @@ function ChannelManagementPanelContent({
           <DialogPrimitive.Title asChild>
             <AuxiliaryPanelTitle>
               {activeView === "canvas"
-                ? "Canvas"
+                ? "画布"
                 : activeView === "workflows"
-                  ? "Workflows"
-                  : "Channel Settings"}
+                  ? "工作流"
+                  : "频道设置"}
             </AuxiliaryPanelTitle>
           </DialogPrimitive.Title>
         </AuxiliaryPanelHeaderGroup>
         <DialogPrimitive.Description className="sr-only">
-          Channel settings
+          频道设置
         </DialogPrimitive.Description>
       </AuxiliaryPanelHeader>
 
@@ -780,7 +780,7 @@ function ChannelManagementPanelContent({
               </p>
             ) : null}
 
-            <FieldGroup testId="channel-management-details" title="Details">
+            <FieldGroup testId="channel-management-details" title="详细信息">
               {resolvedChannel.channelType !== "dm" ? (
                 <>
                   <ChannelTypeDetailRow
@@ -790,19 +790,19 @@ function ChannelManagementPanelContent({
                   />
                   <EditableInfoFieldRow
                     editTestId="channel-management-edit-visibility"
-                    label="Visibility"
+                    label="可见性"
                     onEdit={canEditChannel ? onOpenEdit : undefined}
                     testId="channel-management-visibility"
                     value={
                       resolvedChannel.visibility === "private"
-                        ? "Private"
-                        : "Public"
+                        ? "私密"
+                        : "公开"
                     }
                   />
                 </>
               ) : null}
               <InfoFieldRow
-                label="Members"
+                label="成员"
                 onClick={onOpenMembers}
                 testId="channel-management-member-count"
                 trailing={
@@ -811,10 +811,10 @@ function ChannelManagementPanelContent({
                     members={members}
                   />
                 }
-                value={`${memberCount} member${memberCount === 1 ? "" : "s"}`}
+                value={`${memberCount} 位成员`}
               />
               <CopyFieldRow
-                label="Channel ID"
+                label="频道 ID"
                 testId="channel-management-channel-id"
                 value={resolvedChannel.id}
               />
@@ -824,26 +824,26 @@ function ChannelManagementPanelContent({
               <div className="space-y-3">
                 <IngressRow
                   description={canvasPreview}
-                  helpText="Use the canvas as a shared space for notes, plans, and other channel information."
+                  helpText="使用画布作为笔记、计划和其它频道信息的共享空间。"
                   icon={BookOpenText}
-                  label="Canvas"
+                  label="画布"
                   onClick={() => setActiveView("canvas")}
                   testId="channel-canvas-ingress"
-                  trailing={canvasQuery.isLoading ? "Loading..." : undefined}
+                  trailing={canvasQuery.isLoading ? "加载中..." : undefined}
                 />
                 {workflowsEnabled ? (
                   <IngressRow
                     description={
                       workflowsQuery.isLoading
                         ? undefined
-                        : `${workflowsQuery.data?.length ?? 0} workflow${workflowsQuery.data?.length === 1 ? "" : "s"}`
+                        : `${workflowsQuery.data?.length ?? 0} 个工作流`
                     }
                     icon={WorkflowIcon}
-                    label="Workflows"
+                    label="工作流"
                     onClick={() => setActiveView("workflows")}
                     testId="channel-workflows-ingress"
                     trailing={
-                      workflowsQuery.isLoading ? "Loading..." : undefined
+                      workflowsQuery.isLoading ? "加载中..." : undefined
                     }
                   />
                 ) : null}
@@ -853,13 +853,13 @@ function ChannelManagementPanelContent({
                 description={
                   workflowsQuery.isLoading
                     ? undefined
-                    : `${workflowsQuery.data?.length ?? 0} workflow${workflowsQuery.data?.length === 1 ? "" : "s"}`
+                    : `${workflowsQuery.data?.length ?? 0} 个工作流`
                 }
                 icon={WorkflowIcon}
-                label="Workflows"
+                label="工作流"
                 onClick={() => setActiveView("workflows")}
                 testId="channel-workflows-ingress"
-                trailing={workflowsQuery.isLoading ? "Loading..." : undefined}
+                trailing={workflowsQuery.isLoading ? "加载中..." : undefined}
               />
             ) : null}
 
@@ -867,13 +867,13 @@ function ChannelManagementPanelContent({
               <FieldGroup testId="channel-management-actions">
                 {canJoin ? (
                   <ActionFieldRow
-                    description="Add this channel to your sidebar"
+                    description="将此频道添加到侧边栏"
                     disabled={joinChannelMutation.isPending}
                     icon={DoorOpen}
                     label={
                       joinChannelMutation.isPending
-                        ? "Joining channel..."
-                        : "Join channel"
+                        ? "正在加入频道..."
+                        : "加入频道"
                     }
                     onClick={() => {
                       void joinChannelMutation.mutateAsync();
@@ -887,8 +887,8 @@ function ChannelManagementPanelContent({
                     icon={DoorClosed}
                     label={
                       leaveChannelMutation.isPending
-                        ? "Leaving channel..."
-                        : "Leave channel"
+                        ? "正在退出频道..."
+                        : "退出频道"
                     }
                     onClick={() => {
                       void leaveChannelMutation.mutateAsync().then(() => {
@@ -905,8 +905,8 @@ function ChannelManagementPanelContent({
                       icon={ArchiveRestore}
                       label={
                         unarchiveChannelMutation.isPending
-                          ? "Restoring channel..."
-                          : "Unarchive channel"
+                          ? "正在恢复频道..."
+                          : "取消归档频道"
                       }
                       onClick={() => {
                         void unarchiveChannelMutation.mutateAsync();
@@ -919,8 +919,8 @@ function ChannelManagementPanelContent({
                       icon={Archive}
                       label={
                         archiveChannelMutation.isPending
-                          ? "Archiving channel..."
-                          : "Archive channel"
+                          ? "正在归档频道..."
+                          : "归档频道"
                       }
                       onClick={() => {
                         void archiveChannelMutation.mutateAsync();
@@ -944,7 +944,7 @@ function ChannelManagementPanelContent({
                         destructive
                         disabled={deleteChannelMutation.isPending}
                         icon={Trash2}
-                        label="Delete channel"
+                        label="删除频道"
                         testId="channel-management-delete"
                       />
                     }

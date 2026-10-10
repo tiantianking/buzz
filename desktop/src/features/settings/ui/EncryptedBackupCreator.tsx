@@ -21,10 +21,10 @@ const MAX_GENERATED_WORDS = 10;
 const DEFAULT_GENERATED_WORDS = 3;
 
 const SEPARATOR_OPTIONS = [
-  { label: "Spaces", value: " " },
-  { label: "Hyphens", value: "-" },
-  { label: "Periods", value: "." },
-  { label: "Commas", value: "," },
+  { label: "空格", value: " " },
+  { label: "连字符", value: "-" },
+  { label: "句点", value: "." },
+  { label: "逗号", value: "," },
 ] as const;
 
 const DEFAULT_SEPARATOR = SEPARATOR_OPTIONS[0].value;
@@ -57,7 +57,7 @@ function FakeKdfProgressBar() {
 
   return (
     <div
-      aria-label="Encrypting your key"
+      aria-label="正在加密你的密钥"
       aria-valuemax={100}
       aria-valuemin={0}
       aria-valuenow={Math.round(progress)}
@@ -125,7 +125,7 @@ function PassphraseGeneratorPopover({
     } catch (err) {
       if (!mountedRef.current) return;
       setError(
-        err instanceof Error ? err.message : "Failed to generate a password.",
+        err instanceof Error ? err.message : "无法生成随机密码。",
       );
     }
   }, []);
@@ -142,7 +142,7 @@ function PassphraseGeneratorPopover({
           open. Only click-outside or Esc closes it. */}
       <PopoverAnchor asChild>
         <Button
-          aria-label="Generate a password"
+          aria-label="生成随机密码"
           className="absolute right-9 top-1/2 h-8 w-8 -translate-y-1/2 text-muted-foreground hover:text-foreground"
           data-testid="backup-passphrase-generate"
           disabled={disabled}
@@ -184,7 +184,7 @@ function PassphraseGeneratorPopover({
             className="text-sm text-muted-foreground"
             htmlFor="backup-passphrase-words"
           >
-            Words
+            单词数
           </label>
           <div className="flex flex-1 items-center justify-end gap-3">
             <input
@@ -208,7 +208,7 @@ function PassphraseGeneratorPopover({
             className="text-sm text-muted-foreground"
             htmlFor="backup-passphrase-separator"
           >
-            Separator
+            分隔符
           </label>
           <select
             className="h-8 rounded-lg border border-border bg-background px-2 text-sm text-foreground outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
@@ -275,10 +275,9 @@ export function EncryptedBackupCreator({
     <Dialog onOpenChange={onOpenChange} open={open}>
       <DialogContent className="max-w-lg" data-testid="encrypted-backup-dialog">
         <DialogHeader className="pr-8">
-          <DialogTitle>Create a key backup</DialogTitle>
+          <DialogTitle>创建密钥备份</DialogTitle>
           <DialogDescription>
-            You can close this window while Buzz finishes the backup in the
-            background.
+            你可以关闭此窗口，Buzz 将在后台继续完成备份处理。
           </DialogDescription>
         </DialogHeader>
         <div
@@ -290,7 +289,7 @@ export function EncryptedBackupCreator({
           ) : !state.savedPassword ? (
             <div className="relative">
               <Input
-                aria-label="Encryption password"
+                aria-label="加密密码"
                 autoComplete="new-password"
                 className="h-10 bg-background pr-19"
                 data-testid="backup-passphrase-input"
@@ -300,12 +299,12 @@ export function EncryptedBackupCreator({
                     value: event.target.value,
                   })
                 }
-                placeholder={`Password (min ${MIN_PASSPHRASE_LEN} characters)`}
+                placeholder={`密码（至少 ${MIN_PASSPHRASE_LEN} 个字符）`}
                 type={isRevealed ? "text" : "password"}
                 value={state.passphrase}
               />
               <Button
-                aria-label={isRevealed ? "Hide password" : "Reveal password"}
+                aria-label={isRevealed ? "隐藏密码" : "显示密码"}
                 className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 data-testid="backup-passphrase-reveal-toggle"
                 onClick={() => setIsRevealed((revealed) => !revealed)}
@@ -331,9 +330,7 @@ export function EncryptedBackupCreator({
 
           {!state.downloadPending && !state.savedPassword ? (
             <p className="text-xs leading-5 text-muted-foreground">
-              Keep the file private and save its password somewhere safe — Buzz
-              cannot reset it. Once ready, the backup remains available to
-              download for 5 minutes.
+              请妥善保管该备份文件，并将密码保存在安全的地方——Buzz 无法找回或重置该密码。文件生成后，将在 5 分钟内可供下载。
             </p>
           ) : null}
 
@@ -364,7 +361,7 @@ export function EncryptedBackupCreator({
                 onClick={() => dispatch({ type: "download-clicked" })}
                 type="button"
               >
-                Backup key
+                备份密钥
               </Button>
             </div>
           ) : null}

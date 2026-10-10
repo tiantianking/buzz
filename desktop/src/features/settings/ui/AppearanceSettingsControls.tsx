@@ -55,13 +55,13 @@ export function ProminentActiveTabSetting() {
           className="text-sm font-medium"
           htmlFor="prominent-active-tab-switch"
         >
-          Prominent active tab
+          高亮活动标签页
         </label>
         <p
           className="text-sm font-normal text-muted-foreground/70"
           data-settings-subcopy
         >
-          Give the selected navigation item a higher-contrast background.
+          为当前选中的导航项提供更高对比度的背景高亮。
         </p>
       </div>
       <Switch
@@ -81,13 +81,13 @@ const LINK_PREVIEW_STYLE_OPTIONS: {
 }[] = [
   {
     value: "compact",
-    label: "Compact",
-    description: "Small cards with a thumbnail",
+    label: "紧凑",
+    description: "带缩略图的紧凑小卡片",
   },
   {
     value: "rich",
-    label: "Rich",
-    description: "Large previews with images and descriptions",
+    label: "丰富",
+    description: "带有大图和详细摘要的丰富卡片",
   },
 ];
 
@@ -97,15 +97,15 @@ const CONVERSATION_DENSITY_OPTIONS: readonly {
 }[] = [
   {
     value: "compact",
-    label: "Compact",
+    label: "紧凑",
   },
   {
     value: "comfortable",
-    label: "Comfy",
+    label: "适中",
   },
   {
     value: "spacious",
-    label: "Spacious",
+    label: "宽松",
   },
 ];
 
@@ -115,15 +115,15 @@ const FONT_SIZE_OPTIONS: readonly {
 }[] = [
   {
     value: "smaller",
-    label: "Smaller",
+    label: "偏小",
   },
   {
     value: "default",
-    label: "Default",
+    label: "默认",
   },
   {
     value: "larger",
-    label: "Larger",
+    label: "偏大",
   },
 ];
 
@@ -170,7 +170,7 @@ function ConversationPreview() {
       >
         <span className="absolute right-3.5 top-3 inline-flex items-center gap-1 text-2xs font-medium text-muted-foreground/55">
           <Eye aria-hidden="true" className="size-3" />
-          Preview
+          预览
         </span>
         <div className="p-4" data-testid="conversation-preview-content">
           <ConversationDensityPreviewMessage
@@ -178,7 +178,7 @@ function ConversationPreview() {
             author="Maya"
             timestamp="9:41"
           >
-            The revised conversation layout is ready to review.
+            新的对话布局已就绪，可供预览。
           </ConversationDensityPreviewMessage>
           <ConversationDensityPreviewMessage
             avatar="T"
@@ -186,11 +186,10 @@ function ConversationPreview() {
             timestamp="9:43"
           >
             <p>
-              I added a longer message so you can compare line height and text
-              spacing.
+              这里是一条稍长的示例消息，方便对比行高与文字间距。
             </p>
             <p className="mt-conversation-paragraph">
-              The same rhythm carries through channels, threads, DMs, and Inbox.
+              相同的节奏统一贯穿频道、话题、私聊与收件箱。
             </p>
           </ConversationDensityPreviewMessage>
         </div>
@@ -208,17 +207,17 @@ export function ConversationDisplaySettings() {
     <div data-testid="conversation-display-group">
       <SettingsOptionRow data-testid="font-size-row">
         <div className="min-w-0">
-          <p className="text-sm font-medium">Font size</p>
+          <p className="text-sm font-medium">字体大小</p>
           <p
             className="text-sm font-normal text-muted-foreground/70"
             data-settings-subcopy
           >
-            Applies across conversations and interface text
+            应用于所有对话内容及界面文字
           </p>
         </div>
         <SegmentedControl
           size="wide"
-          legend="Font size"
+          legend="字体大小"
           onPreviewChange={previewFontSize}
           onValueChange={setFontSize}
           optionTestIdPrefix="font-size"
@@ -229,17 +228,17 @@ export function ConversationDisplaySettings() {
       </SettingsOptionRow>
       <SettingsOptionRow data-testid="conversation-density-row">
         <div className="min-w-0">
-          <p className="text-sm font-medium">Conversation density</p>
+          <p className="text-sm font-medium">对话间距密度</p>
           <p
             className="text-sm font-normal text-muted-foreground/70"
             data-settings-subcopy
           >
-            Spacing in conversations and Markdown content across Buzz
+            Buzz 中对话消息与 Markdown 内容的排版间距
           </p>
         </div>
         <SegmentedControl
           size="wide"
-          legend="Conversation density"
+          legend="对话间距密度"
           onPreviewChange={previewConversationDensity}
           onValueChange={setConversationDensity}
           optionTestIdPrefix="conversation-density"
@@ -322,7 +321,7 @@ function LinkPreviewSample({ style }: { style: LinkPreviewStyle }) {
       >
         <span className="absolute right-3.5 top-3 inline-flex items-center gap-1 text-2xs font-medium text-muted-foreground/55">
           <Eye aria-hidden="true" className="size-3" />
-          Preview
+          预览
         </span>
         <div className="p-4 pr-24">
           <LinkPreviewAttachmentPresentation
@@ -351,7 +350,7 @@ export function LinkPreviewStyleSetting() {
     <div data-testid="link-preview-style-group">
       <SettingsOptionRow>
         <div className="min-w-0">
-          <p className="text-sm font-medium">Link previews</p>
+          <p className="text-sm font-medium">链接卡片预览</p>
           <p
             className="text-sm font-normal text-muted-foreground/70"
             data-settings-subcopy
@@ -361,7 +360,7 @@ export function LinkPreviewStyleSetting() {
         </div>
         <SegmentedControl
           size="compact"
-          legend="Link previews"
+          legend="链接卡片预览"
           onPreviewChange={setPreviewStyle}
           onValueChange={setLinkPreviewStyle}
           optionTestIdPrefix="link-preview-style"
@@ -382,13 +381,13 @@ const THREAD_VIEW_MODE_OPTIONS: {
 }[] = [
   {
     value: "focus",
-    label: "Focus",
-    description: "Threads open over the channel",
+    label: "全屏聚焦",
+    description: "话题讨论在频道上方浮层展开",
   },
   {
     value: "split",
-    label: "Split",
-    description: "Threads open in a side panel next to the channel",
+    label: "分栏并排",
+    description: "话题讨论在频道右侧侧边栏分栏展开",
   },
 ];
 
@@ -409,27 +408,27 @@ export function GlassBackgroundSetting() {
   const opacityRow = (
     <SettingsOptionRow data-testid="glass-opacity-row">
       <div className="min-w-0">
-        <p className="text-sm font-medium">Glass opacity</p>
+        <p className="text-sm font-medium">毛玻璃不透明度</p>
         <p
           className="text-sm font-normal text-muted-foreground/70"
           data-settings-subcopy
           id="glass-opacity-description"
         >
-          Lower values reveal more of the desktop blur.
+          数值越低，透出的桌面模糊效果越明显。
         </p>
       </div>
       <div className="flex w-64 shrink-0 items-center">
         <AvatarFramingSlider
           ariaDescribedBy="glass-opacity-description"
-          ariaLabel="Glass opacity"
-          ariaValueText={`${glassOpacity}% opacity`}
+          ariaLabel="毛玻璃不透明度"
+          ariaValueText={`${glassOpacity}% 不透明度`}
           compact
           handleAlwaysVisible
           max={GLASS_OPACITY_MAX}
           min={GLASS_OPACITY_MIN}
           onChange={setGlassOpacity}
           onReset={() => setGlassOpacity(DEFAULT_GLASS_OPACITY)}
-          resetLabel="Reset glass opacity"
+          resetLabel="重置毛玻璃不透明度"
           resetTestId="glass-opacity-reset"
           resetValue={DEFAULT_GLASS_OPACITY}
           testId="glass-opacity-slider"
@@ -447,15 +446,15 @@ export function GlassBackgroundSetting() {
             className="text-sm font-medium"
             htmlFor="glass-background-switch"
           >
-            Glass background
+            毛玻璃背景
           </label>
           <p
             className="text-sm font-normal text-muted-foreground/70"
             data-settings-subcopy
           >
             {glassBackgroundSupported
-              ? "Blur the desktop behind navigation while keeping content solid."
-              : "Available in the macOS desktop app."}
+              ? "导航栏背景毛玻璃模糊桌面，同时保持内容主体清晰。"
+              : "可在桌面端应用中开启。"}
           </p>
         </div>
         <Switch
@@ -592,7 +591,7 @@ function ThreadLayoutPreview({ mode }: { mode: ThreadViewMode }) {
       >
         <span className="absolute right-3.5 top-3 inline-flex items-center gap-1 text-2xs font-medium text-muted-foreground/55">
           <Eye aria-hidden="true" className="size-3" />
-          Preview
+          预览
         </span>
         <div className="p-4 pr-24">
           <ThreadLayoutDiagram mode={mode} />
@@ -619,11 +618,11 @@ export function ThreadLayoutSetting() {
       <SettingsOptionRow>
         <div className="min-w-0">
           <p className="text-sm font-medium">
-            Thread layout
+            话题讨论布局
             {showCommunityScope ? (
               <span className="font-normal text-muted-foreground">
                 {" "}
-                (all communities)
+                (所有社区)
               </span>
             ) : null}
           </p>
@@ -636,7 +635,7 @@ export function ThreadLayoutSetting() {
         </div>
         <SegmentedControl
           size="compact"
-          legend="Thread layout"
+          legend="话题讨论布局"
           onPreviewChange={setPreviewMode}
           onValueChange={setThreadViewMode}
           optionTestIdPrefix="thread-layout"
@@ -663,12 +662,12 @@ export function AccentPickerContent({
   return (
     <SettingsOptionRow className="items-start">
       <div className="min-w-0">
-        <p className="text-sm font-medium">Accent color</p>
+        <p className="text-sm font-medium">强调色</p>
         <p
           className="text-sm font-normal text-muted-foreground/70"
           data-settings-subcopy
         >
-          Choose the highlight color used throughout Buzz.
+          选择在 Buzz 全局使用的高亮强调色。
         </p>
       </div>
       <div

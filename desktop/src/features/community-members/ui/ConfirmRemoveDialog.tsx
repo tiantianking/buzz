@@ -41,9 +41,9 @@ export function ConfirmRemoveDialog({
         data-testid="confirm-remove-member-dialog"
       >
         <DialogHeader>
-          <DialogTitle>Remove {label}?</DialogTitle>
+          <DialogTitle>移除 {label}？</DialogTitle>
           <DialogDescription>
-            This will immediately revoke their access to the relay.
+            这将立即撤销其对中继器的访问权限。
           </DialogDescription>
           {member ? (
             <PubKey
@@ -59,7 +59,7 @@ export function ConfirmRemoveDialog({
             size="sm"
             variant="outline"
           >
-            Cancel
+            取消
           </Button>
           <Button
             data-testid="confirm-remove-member"
@@ -68,14 +68,14 @@ export function ConfirmRemoveDialog({
               if (!member) return;
               removeMutation.mutate(member.pubkey, {
                 onSuccess: () => {
-                  toast.success("Member removed");
+                  toast.success("成员已移除");
                   handleOpenChange(false);
                 },
                 onError: (error) => {
                   toast.error(
                     error instanceof Error
                       ? error.message
-                      : "Failed to remove member",
+                      : "移除成员失败",
                   );
                 },
               });
@@ -83,7 +83,7 @@ export function ConfirmRemoveDialog({
             size="sm"
             variant="destructive"
           >
-            {removeMutation.isPending ? "Removing..." : "Remove"}
+            {removeMutation.isPending ? "移除中..." : "移除"}
           </Button>
         </div>
       </DialogContent>

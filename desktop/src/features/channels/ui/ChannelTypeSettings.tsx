@@ -25,20 +25,20 @@ import { EditableInfoFieldRow } from "./ChannelManagementSheetRows";
 import { ChannelTypePicker } from "./ChannelTypePicker";
 
 const CHANNEL_TYPE_OPTIONS = [
-  { value: "temporary", label: "Temporary", Icon: ClockFading },
-  { value: "ongoing", label: "Ongoing", Icon: Hash },
+  { value: "temporary", label: "临时", Icon: ClockFading },
+  { value: "ongoing", label: "持续", Icon: Hash },
 ] as const;
 
 const EPHEMERAL_TIMEOUT_OPTIONS = [
-  { label: "30 minutes", seconds: 30 * 60 },
-  { label: "1 hour", seconds: 60 * 60 },
-  { label: "6 hours", seconds: 6 * 60 * 60 },
-  { label: "12 hours", seconds: 12 * 60 * 60 },
-  { label: "1 day", seconds: 24 * 60 * 60 },
-  { label: "3 days", seconds: 3 * 24 * 60 * 60 },
-  { label: "7 days", seconds: DEFAULT_EPHEMERAL_TTL_SECONDS },
-  { label: "14 days", seconds: 14 * 24 * 60 * 60 },
-  { label: "30 days", seconds: 30 * 24 * 60 * 60 },
+  { label: "30 分钟", seconds: 30 * 60 },
+  { label: "1 小时", seconds: 60 * 60 },
+  { label: "6 小时", seconds: 6 * 60 * 60 },
+  { label: "12 小时", seconds: 12 * 60 * 60 },
+  { label: "1 天", seconds: 24 * 60 * 60 },
+  { label: "3 天", seconds: 3 * 24 * 60 * 60 },
+  { label: "7 天", seconds: DEFAULT_EPHEMERAL_TTL_SECONDS },
+  { label: "14 天", seconds: 14 * 24 * 60 * 60 },
+  { label: "30 天", seconds: 30 * 24 * 60 * 60 },
 ] as const;
 
 const CHANNEL_TYPE_RESIZE_TRANSITION = {
@@ -61,13 +61,25 @@ export function ChannelTypeDetailRow({
     temporary: channel.ttlSeconds !== null,
   });
 
+  const rawLabel = channelLifecycleLabel(lifecycle, channel.ttlSeconds);
+  const displayLabel =
+    rawLabel === "Ongoing"
+      ? "持续"
+      : rawLabel === "Project"
+        ? "项目"
+        : rawLabel === "Temporary"
+          ? "临时"
+          : rawLabel.startsWith("Temporary · ")
+            ? rawLabel.replace("Temporary · ", "临时 · ")
+            : rawLabel;
+
   return (
     <EditableInfoFieldRow
       editTestId="channel-management-edit-channel-type"
-      label="Channel type"
+      label="频道类型"
       onEdit={canEdit ? onEdit : undefined}
       testId="channel-management-type"
-      value={channelLifecycleLabel(lifecycle, channel.ttlSeconds)}
+      value={displayLabel}
     />
   );
 }
@@ -75,7 +87,7 @@ export function ChannelTypeDetailRow({
 export function ChannelTypeSettings({
   channelId,
   disabled,
-  label = "Channel type",
+  label = "频道类型",
   onOpenChange,
   onTemporaryChange,
   onTtlSecondsChange,

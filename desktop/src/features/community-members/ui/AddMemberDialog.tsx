@@ -40,11 +40,11 @@ const ROLE_OPTIONS: Array<{
 }> = [
   {
     value: "member",
-    label: "Member",
+    label: "成员",
   },
   {
     value: "admin",
-    label: "Admin",
+    label: "管理员",
   },
 ];
 
@@ -52,7 +52,7 @@ export function DirectAddMemberForm({
   isOwner,
   onAdded,
   showLabel = true,
-  submitLabel = "Add member",
+  submitLabel = "添加成员",
 }: {
   isOwner: boolean;
   onAdded?: () => void;
@@ -173,11 +173,11 @@ export function DirectAddMemberForm({
       toast.success(
         selectedUsers.length === 1
           ? role === "admin"
-            ? "Admin added"
-            : "Member added"
+            ? "已添加管理员"
+            : "已添加成员"
           : role === "admin"
-            ? "Admins added"
-            : "Members added",
+            ? "已添加管理员"
+            : "已添加成员",
       );
       reset();
       onAdded?.();
@@ -198,7 +198,7 @@ export function DirectAddMemberForm({
       <div className="space-y-1.5">
         {showLabel ? (
           <label className="text-sm font-medium" htmlFor="member-search">
-            Person
+            用户
           </label>
         ) : null}
         <div className="flex gap-2">
@@ -266,7 +266,7 @@ export function DirectAddMemberForm({
                       }}
                       placeholder={
                         selectedUsers.length === 0
-                          ? "Search people or paste an npub"
+                          ? "搜索用户或粘贴 npub"
                           : ""
                       }
                       ref={searchInputRef}
@@ -287,7 +287,7 @@ export function DirectAddMemberForm({
                         <DropdownMenu modal={false}>
                           <DropdownMenuTrigger asChild>
                             <button
-                              aria-label="Choose member role"
+                              aria-label="选择成员身份组"
                               className="inline-flex items-center gap-1.5 bg-transparent text-sm text-muted-foreground outline-hidden transition-colors hover:text-foreground focus-visible:text-foreground disabled:cursor-not-allowed disabled:opacity-60"
                               data-testid="member-role"
                               disabled={addMutation.isPending}
@@ -342,7 +342,7 @@ export function DirectAddMemberForm({
               >
                 {userSearchQuery.isLoading ? (
                   <p className="px-3 py-3 text-sm text-muted-foreground">
-                    Searching…
+                    正在搜索…
                   </p>
                 ) : searchResults.length > 0 || directResult ? (
                   <>
@@ -364,8 +364,7 @@ export function DirectAddMemberForm({
                   </>
                 ) : (
                   <p className="px-3 py-3 text-sm text-muted-foreground">
-                    No people found. Paste a full npub or hex public key to add
-                    someone directly.
+                    未找到用户。可直接粘贴完整 npub 或十六进制公钥添加。
                   </p>
                 )}
               </div>
@@ -387,7 +386,7 @@ export function DirectAddMemberForm({
                   size="sm"
                   type="submit"
                 >
-                  {addMutation.isPending ? "Inviting…" : submitLabel}
+                  {addMutation.isPending ? "邀请中…" : submitLabel}
                 </Button>
               </motion.div>
             ) : null}
@@ -395,7 +394,7 @@ export function DirectAddMemberForm({
         </div>
         {isAlreadyMember ? (
           <p className="text-xs text-destructive">
-            This person is already a community member.
+            此人已是社区成员。
           </p>
         ) : null}
         {userSearchQuery.error instanceof Error ? (
@@ -431,9 +430,9 @@ export function AddMemberDialog({
       >
         <div className="flex max-h-[85vh] flex-col">
           <DialogHeader className="border-b border-border/60 px-6 py-5 pr-14">
-            <DialogTitle>Add member</DialogTitle>
+            <DialogTitle>添加成员</DialogTitle>
             <DialogDescription>
-              Add a person to this community by their public key.
+              通过公钥将用户添加到此社区。
             </DialogDescription>
           </DialogHeader>
           <div className="px-6 py-4">

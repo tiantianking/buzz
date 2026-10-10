@@ -325,7 +325,7 @@ export function CommunitySwitcher({
                   type="button"
                 >
                   <Link2 className="h-4 w-4" />
-                  <span>Copy community URL</span>
+                  <span>复制社区链接</span>
                 </button>
                 {canInvite && onInvite ? (
                   <button
@@ -338,7 +338,7 @@ export function CommunitySwitcher({
                     type="button"
                   >
                     <Ticket className="h-4 w-4" />
-                    <span>Invite to community</span>
+                    <span>邀请加入社区</span>
                   </button>
                 ) : null}
                 <button
@@ -351,7 +351,7 @@ export function CommunitySwitcher({
                   type="button"
                 >
                   <Settings2 className="h-4 w-4" />
-                  <span>Community settings</span>
+                  <span>社区设置</span>
                 </button>
                 <button
                   className="flex min-h-9 w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-destructive outline-hidden transition-colors hover:bg-destructive/10 focus:bg-destructive/10 focus:outline-none focus-visible:bg-destructive/10 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
@@ -361,7 +361,7 @@ export function CommunitySwitcher({
                   type="button"
                 >
                   <LogOut className="h-4 w-4" />
-                  <span>{isLeaving ? "Leaving…" : "Leave community"}</span>
+                  <span>{isLeaving ? "正在退出…" : "退出社区"}</span>
                 </button>
                 <button
                   className="flex min-h-9 w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-destructive outline-hidden transition-colors hover:bg-destructive/10 focus:bg-destructive/10 focus:outline-none focus-visible:bg-destructive/10 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
@@ -374,7 +374,7 @@ export function CommunitySwitcher({
                   type="button"
                 >
                   <Trash2 className="h-4 w-4" />
-                  <span>Remove from this device</span>
+                  <span>从此设备移除</span>
                 </button>
                 {leaveError ? (
                   <p
@@ -397,7 +397,7 @@ export function CommunitySwitcher({
               type="button"
             >
               <Plus className="h-4 w-4" />
-              <span>Add a community</span>
+              <span>添加社区</span>
             </button>
           </div>
         </PopoverContent>
@@ -478,7 +478,7 @@ export function CommunitySwitcher({
         <DropdownMenuSeparator />
         <DropdownMenuItem onSelect={onAddCommunity}>
           <Plus className="h-4 w-4" />
-          <span>Add a community</span>
+          <span>添加社区</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

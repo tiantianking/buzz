@@ -50,11 +50,11 @@ export function SearchDialogInputRow({
       <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
       {scopeLabel ? (
         <button
-          aria-label={`Remove ${scopeLabel} search scope`}
+          aria-label={`移除 ${scopeLabel} 搜索范围`}
           className="flex h-7 max-w-48 shrink-0 items-center gap-1 rounded-md border border-primary/20 bg-primary/10 px-2 text-sm font-medium text-foreground transition-colors hover:bg-primary/15 focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
           data-testid="search-channel-scope-chip"
           onClick={onRemoveScope}
-          title={`Remove ${scopeLabel} search scope`}
+          title={`移除 ${scopeLabel} 搜索范围`}
           type="button"
         >
           <span className="truncate">{scopeLabel}</span>
@@ -65,7 +65,7 @@ export function SearchDialogInputRow({
         {query.length === 0 ? (
           <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center text-base leading-none">
             {scopeLabel ? (
-              <span className="text-muted-foreground">Search messages</span>
+              <span className="text-muted-foreground">搜索消息</span>
             ) : (
               <SearchPromptPlaceholder />
             )}
@@ -73,7 +73,7 @@ export function SearchDialogInputRow({
         ) : null}
         <input
           aria-label={
-            scopeLabel ? `Search in ${scopeLabel}` : "Search everything"
+            scopeLabel ? `在 ${scopeLabel} 中搜索` : "搜索全部内容"
           }
           autoCapitalize="none"
           autoCorrect="off"
@@ -130,14 +130,15 @@ export function CurrentChannelSearchAction({
             className="min-w-0 truncate text-sm text-muted-foreground"
             data-testid="search-current-scope-label"
           >
-            {isDirectMessage ? "Search conversation with " : "Search in "}
+            {isDirectMessage ? "搜索与 " : "在 "}
             <span className="font-medium text-foreground">{channelLabel}</span>
+            {isDirectMessage ? " 的私信记录" : " 中搜索"}
           </span>
         </span>
         <span className="ml-auto shrink-0 text-xs text-muted-foreground/70">
           {isDirectMessage
-            ? "Search messages in this conversation."
-            : "Search messages in this channel"}
+            ? "在此私信对话中搜索消息"
+            : "在此频道中搜索消息"}
         </span>
       </button>
     </div>

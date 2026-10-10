@@ -95,7 +95,7 @@ export function NewMessageResultRow({
       data-keyboard-highlighted={isKeyboardHighlighted ? "true" : undefined}
     >
       <button
-        aria-label={`${isAlreadySelected ? "Already added" : "Add"} ${name}`}
+        aria-label={`${isAlreadySelected ? "已添加" : "添加"} ${name}`}
         aria-selected={isAlreadySelected || isKeyboardHighlighted}
         className={cn(
           "group/dm-result flex min-h-14 w-full cursor-pointer items-center gap-3 px-4 py-3.5 text-left transition-colors duration-150 ease-out hover:bg-muted/40 focus-visible:bg-muted/40 focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-60",
@@ -132,7 +132,7 @@ export function NewMessageResultRow({
                     className="h-3 w-3"
                     data-testid="new-dm-agent-icon"
                   />
-                  agent
+                  智能体
                 </span>
                 <AgentManagementMarker
                   pubkey={user.pubkey}
@@ -141,7 +141,7 @@ export function NewMessageResultRow({
               </div>
               {ownerLabel ? (
                 <span className="block truncate text-xs text-muted-foreground">
-                  managed by {ownerLabel}
+                  由 {ownerLabel} 管理
                 </span>
               ) : null}
             </div>

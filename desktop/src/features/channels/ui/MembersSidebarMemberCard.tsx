@@ -87,9 +87,9 @@ export type MemberModerationState = {
 
 /** Timeout durations offered in the member menu, in seconds. */
 const TIMEOUT_PRESETS: { label: string; seconds: number }[] = [
-  { label: "1 hour", seconds: 60 * 60 },
-  { label: "24 hours", seconds: 24 * 60 * 60 },
-  { label: "7 days", seconds: 7 * 24 * 60 * 60 },
+  { label: "1 小时", seconds: 60 * 60 },
+  { label: "24 小时", seconds: 24 * 60 * 60 },
+  { label: "7 天", seconds: 7 * 24 * 60 * 60 },
 ];
 
 const MEMBER_ROW_INSET_DIVIDER_CLASS =
@@ -97,12 +97,11 @@ const MEMBER_ROW_INSET_DIVIDER_CLASS =
 
 function formatRoleLabel(member: ChannelMember, memberIsBot: boolean) {
   if (memberIsBot) {
-    return "agent";
+    return "智能体";
   }
 
-  if (member.role === "owner" || member.role === "admin") {
-    return member.role;
-  }
+  if (member.role === "owner") return "创建者";
+  if (member.role === "admin") return "管理员";
 
   return null;
 }
@@ -110,11 +109,11 @@ function formatRoleLabel(member: ChannelMember, memberIsBot: boolean) {
 function formatRespondToLabel(agent: ManagedAgent) {
   switch (agent.respondTo) {
     case "anyone":
-      return "Anyone";
+      return "任何人";
     case "allowlist":
-      return `Selected people (${agent.respondToAllowlist.length})`;
+      return `指定成员 (${agent.respondToAllowlist.length})`;
     default:
-      return "Only me";
+      return "仅自己";
   }
 }
 
@@ -233,10 +232,16 @@ export function MembersSidebarMemberCard({
               }
             >
               {managedAgentRuntime
-                ? agentCommunityAvailability(managedAgentRuntime)
+                ? agentCommunityAvailability(managedAgentRuntime) === "Here"
+                  ? "在线"
+                  : agentCommunityAvailability(managedAgentRuntime) === "Waking"
+                    ? "唤醒中"
+                    : agentCommunityAvailability(managedAgentRuntime) === "Needs setup on this device"
+                      ? "未就绪"
+                      : "不可用"
                 : managedAgent && isManagedAgentActive(managedAgent)
-                  ? "Running"
-                  : "Stopped"}
+                  ? "运行中"
+                  : "已停止"}
             </Badge>
             {managedAgent ? (
               <Badge
@@ -263,7 +268,7 @@ export function MembersSidebarMemberCard({
     >
       {onOpenProfile ? (
         <button
-          aria-label={`Open profile for ${memberLabel}`}
+          aria-label={`打开 ${memberLabel} 的个人资料`}
           className="absolute inset-0 z-0 cursor-pointer focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
           data-testid={`sidebar-member-open-profile-${member.pubkey}`}
           onClick={() => onOpenProfile(member.pubkey)}
@@ -302,6 +307,11 @@ export function MembersSidebarMemberCard({
 }
 
 const PEOPLE_ROLES = ["admin", "member", "guest"] as const;
+const ROLE_LABELS: Record<string, string> = {
+  admin: "管理员",
+  member: "成员",
+  guest: "访客",
+};
 
 function MemberActionsMenu({
   availability,
@@ -379,7 +389,7 @@ function MemberActionsMenu({
             onClick={() => onViewActivity?.(member.pubkey)}
           >
             <Activity className="h-4 w-4" />
-            View activity
+            查看动态
           </DropdownMenuItem>
         ) : null}
         {memberIsBot && managedAgent ? (
@@ -407,7 +417,7 @@ function MemberActionsMenu({
                 onClick={() => onEditRespondTo(managedAgent)}
               >
                 <Pencil className="h-4 w-4" />
-                Manage agent access...
+                管理智能体访问权限...
               </DropdownMenuItem>
             ) : null}
             {canRemoveMember || showChangeRole ? (
@@ -422,7 +432,7 @@ function MemberActionsMenu({
               disabled={disabled}
             >
               <Shield className="h-4 w-4" />
-              Change role
+              修改身份组
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent>
               {PEOPLE_ROLES.map((role) => (
@@ -432,9 +442,8 @@ function MemberActionsMenu({
                   key={role}
                   onClick={() => onChangeRole(member, role)}
                 >
-                  {role[0]?.toUpperCase()}
-                  {role.slice(1)}
-                  {member.role === role ? " (current)" : ""}
+                  {ROLE_LABELS[role] ?? role}
+                  {member.role === role ? " (当前)" : ""}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuSubContent>
@@ -450,7 +459,7 @@ function MemberActionsMenu({
               onClick={() => onRemoveMember(member)}
             >
               <Trash2 className="h-4 w-4" />
-              Remove from channel
+              从频道中移除
             </DropdownMenuItem>
           </>
         ) : null}
@@ -466,7 +475,7 @@ function MemberActionsMenu({
                 onClick={() => onUntimeout(member)}
               >
                 <ShieldCheck className="h-4 w-4" />
-                Lift timeout
+                解除禁言
               </DropdownMenuItem>
             ) : (
               <DropdownMenuSub>
@@ -475,7 +484,7 @@ function MemberActionsMenu({
                   disabled={disabled}
                 >
                   <Clock className="h-4 w-4" />
-                  Time out
+                  禁言
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>
                   {TIMEOUT_PRESETS.map((preset) => (
@@ -503,7 +512,7 @@ function MemberActionsMenu({
                 onClick={() => onUnban(member)}
               >
                 <CircleSlash className="h-4 w-4" />
-                Lift ban
+                解除封禁
               </DropdownMenuItem>
             ) : (
               <DropdownMenuItem
@@ -513,7 +522,7 @@ function MemberActionsMenu({
                 onClick={() => onBan(member)}
               >
                 <Ban className="h-4 w-4" />
-                Ban from community
+                从社区封禁
               </DropdownMenuItem>
             )}
           </>

@@ -33,9 +33,9 @@ type FeedbackCategory = {
 };
 
 const FEEDBACK_CATEGORIES: readonly FeedbackCategory[] = [
-  { id: "bug", label: "Bug", icon: Bug },
-  { id: "praise", label: "Praise", icon: ThumbsUp, positive: true },
-  { id: "needs-work", label: "Needs work", icon: Wrench },
+  { id: "bug", label: "问题反馈", icon: Bug },
+  { id: "praise", label: "点赞夸奖", icon: ThumbsUp, positive: true },
+  { id: "needs-work", label: "改进建议", icon: Wrench },
 ];
 
 /** Single source of truth for category id → user-facing label. */
@@ -127,7 +127,7 @@ export function SendFeedbackDialog({
       await onAttachImage();
     } catch (error) {
       setErrorMessage(
-        error instanceof Error ? error.message : "Failed to attach image.",
+        error instanceof Error ? error.message : "无法添加图片附件。",
       );
     }
   }
@@ -142,7 +142,7 @@ export function SendFeedbackDialog({
       onOpenChange(false);
     } catch (error) {
       setErrorMessage(
-        error instanceof Error ? error.message : "Failed to send feedback.",
+        error instanceof Error ? error.message : "发送反馈失败。",
       );
     }
   }
@@ -157,18 +157,17 @@ export function SendFeedbackDialog({
       >
         <DialogHeader className="space-y-0 pb-5">
           <div className="flex items-center justify-between gap-4">
-            <DialogTitle>Send feedback</DialogTitle>
+            <DialogTitle>发送反馈</DialogTitle>
             <DialogClose className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors duration-150 ease-out hover:bg-accent hover:text-accent-foreground focus:outline-hidden focus:ring-1 focus:ring-ring">
               <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">关闭</span>
             </DialogClose>
           </div>
           <p
             className="pt-2 text-sm text-muted-foreground"
             data-testid="feedback-privacy-disclosure"
           >
-            Feedback is sent privately to this Buzz deployment and is not posted
-            to a channel. Attachments are uploaded before you send.
+            反馈将私密发送给 Buzz 服务，不会公开发布在任何频道中。附件将在发送前上传。
           </p>
         </DialogHeader>
 
@@ -239,14 +238,14 @@ export function SendFeedbackDialog({
                 setMessage(event.target.value);
                 setErrorMessage(null);
               }}
-              placeholder="Tell us what went wrong, or share general feedback."
+              placeholder="请详细描述你遇到的问题或分享你的宝贵建议..."
               value={message}
             />
 
             {resolvedAttachedImageUrl ? (
               <div className="group/attachment relative flex w-32 shrink-0 flex-col overflow-hidden rounded-lg border border-border/70 bg-muted/40">
                 <button
-                  aria-label="View attached image"
+                  aria-label="查看图片附件"
                   className="flex flex-1 flex-col text-left focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
                   data-testid="feedback-attachment-thumb"
                   onClick={() => setPreviewOpen(true)}
@@ -262,11 +261,11 @@ export function SendFeedbackDialog({
                       aria-hidden="true"
                       className="h-3 w-3 shrink-0"
                     />
-                    <span className="truncate">Attached image</span>
+                    <span className="truncate">图片附件</span>
                   </span>
                 </button>
                 <button
-                  aria-label="Remove attachment"
+                  aria-label="移除附件"
                   className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-background/90 text-muted-foreground opacity-0 shadow transition-opacity duration-150 ease-out hover:text-foreground focus-visible:opacity-100 focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring group-hover/attachment:opacity-100"
                   data-testid="feedback-attachment-remove"
                   disabled={isPending}
@@ -278,7 +277,7 @@ export function SendFeedbackDialog({
               </div>
             ) : (
               <button
-                aria-label="Attach image"
+                aria-label="添加图片"
                 className="flex w-32 shrink-0 flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-border/70 bg-muted/20 p-3 text-center text-2xs font-medium text-muted-foreground transition-colors duration-150 ease-out hover:border-muted-foreground/50 hover:text-foreground focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-60"
                 data-testid="feedback-attach-image"
                 disabled={isPending || isAttaching}
@@ -286,7 +285,7 @@ export function SendFeedbackDialog({
                 type="button"
               >
                 <ImageIcon aria-hidden="true" className="h-5 w-5" />
-                {isAttaching ? "Attaching…" : "Attach image"}
+                {isAttaching ? "正在上传…" : "添加图片"}
               </button>
             )}
           </div>
@@ -304,11 +303,10 @@ export function SendFeedbackDialog({
                 id="feedback-include-logs"
                 onCheckedChange={(checked) => setIncludeLogs(checked === true)}
               />
-              Attach diagnostics
+              附带诊断信息
             </label>
             <p className="pl-6 text-xs text-muted-foreground">
-              Includes capture time, app version, platform, user agent, and
-              language. No application log lines are collected.
+              包括当前时间、应用版本、操作系统、用户代理与语言设置。绝不包含任何个人隐私或聊天记录。
             </p>
           </div>
 
@@ -329,7 +327,7 @@ export function SendFeedbackDialog({
                 type="button"
                 variant="ghost"
               >
-                Cancel
+                取消
               </Button>
               <Button
                 data-testid="feedback-submit"
@@ -338,7 +336,7 @@ export function SendFeedbackDialog({
                 }
                 type="submit"
               >
-                {isPending ? "Sending…" : "Send feedback"}
+                {isPending ? "正在发送…" : "发送反馈"}
               </Button>
             </div>
           </div>
@@ -353,7 +351,7 @@ export function SendFeedbackDialog({
             className="max-w-4xl border-0 p-2"
             data-testid="feedback-attachment-preview"
           >
-            <DialogTitle className="sr-only">Attached image</DialogTitle>
+            <DialogTitle className="sr-only">图片附件</DialogTitle>
             <img
               alt="Attached"
               className="max-h-[80vh] w-full rounded-lg bg-black/40 object-contain"

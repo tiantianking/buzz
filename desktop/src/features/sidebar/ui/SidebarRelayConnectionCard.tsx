@@ -61,15 +61,15 @@ export function SidebarRelayConnectionCompactCard({
   testId = "sidebar-relay-unreachable-compact",
 }: SidebarRelayConnectionCardProps) {
   const reconnectTitle = isWaitingOnReconnectHook
-    ? "Waiting to reconnect"
-    : "Connecting";
+    ? "等待重新连接"
+    : "连接中";
   const reconnectDescription = isWaitingOnReconnectHook
-    ? "Complete any prompts opened by the reconnect helper to continue."
-    : "Reconnecting";
+    ? "请完成重连辅助程序弹出的提示以继续。"
+    : "正在重新连接";
 
   return (
     <SidebarCompactActionCard
-      actionAriaLabel={isConnected ? "Connected" : "Connect to relay"}
+      actionAriaLabel={isConnected ? "已连接" : "连接至中继器"}
       actionDisabled={isActionDisabled || isReconnectPending || isConnected}
       actionTestId={actionTestId}
       description={
@@ -77,10 +77,10 @@ export function SidebarRelayConnectionCompactCard({
           ? undefined
           : isReconnectPending
             ? reconnectDescription
-            : "Click to connect"
+            : "点击连接"
       }
       dismissClassName={dismissClassName}
-      dismissLabel="Dismiss relay notification"
+      dismissLabel="忽略中继器通知"
       iconKey={
         isConnected ? "connected" : isReconnectPending ? "pending" : "idle"
       }
@@ -101,10 +101,10 @@ export function SidebarRelayConnectionCompactCard({
       testId={testId}
       title={
         isConnected
-          ? "Connected"
+          ? "已连接"
           : isReconnectPending
             ? reconnectTitle
-            : "Can't reach the relay"
+            : "无法连接到中继器"
       }
       tone={isConnected ? "success" : "neutral"}
     />

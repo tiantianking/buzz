@@ -34,12 +34,12 @@ export function ComposerReplyEditBanner({
         <Pencil aria-hidden className="h-4 w-4 shrink-0" />
         <div className="min-w-0 flex-1">
           <p className="truncate font-medium text-foreground">
-            Editing message
+            正在编辑消息
           </p>
         </div>
         {onCancelEdit ? (
           <Button
-            aria-label="Cancel edit"
+            aria-label="取消编辑"
             className="-mr-1 h-7 w-7 shrink-0 px-0 text-muted-foreground hover:text-foreground"
             disabled={isEditCancelDisabled}
             onClick={onCancelEdit}
@@ -63,7 +63,7 @@ export function ComposerReplyEditBanner({
         <CornerUpLeft aria-hidden className="mt-0.5 h-4 w-4 shrink-0" />
         <div className="min-w-0 flex-1">
           <p className="truncate font-medium text-foreground">
-            Replying to {replyTarget.author}
+            回复 {replyTarget.author}
           </p>
           {replyTarget.body ? (
             <p className="truncate text-muted-foreground/80">
@@ -73,7 +73,7 @@ export function ComposerReplyEditBanner({
         </div>
         {onCancelReply ? (
           <Button
-            aria-label="Cancel reply"
+            aria-label="取消回复"
             className="-mr-1 h-7 w-7 shrink-0 px-0 text-muted-foreground hover:text-foreground"
             onClick={onCancelReply}
             size="icon"

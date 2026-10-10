@@ -66,7 +66,7 @@ function copyMessageLink(channelId: string, message: TimelineMessage) {
     messageId: message.id,
     threadRootId: rootId,
   });
-  copyTextToClipboard(link, "Link copied to clipboard");
+  copyTextToClipboard(link, "链接已复制到剪贴板");
 }
 
 /** Gate shared by every copy-link surface: pending sends have no delivered
@@ -149,7 +149,7 @@ function MoreActionsMenu({
           <TooltipTrigger asChild>
             <DropdownMenuTrigger asChild>
               <Button
-                aria-label="More actions"
+                aria-label="更多操作"
                 className={ACTION_BUTTON_CLASS}
                 data-testid={`more-actions-${message.id}`}
                 size="sm"
@@ -160,7 +160,7 @@ function MoreActionsMenu({
               </Button>
             </DropdownMenuTrigger>
           </TooltipTrigger>
-          <TooltipContent>More actions</TooltipContent>
+          <TooltipContent>更多操作</TooltipContent>
         </Tooltip>
         <DropdownMenuContent
           align="end"
@@ -183,7 +183,7 @@ function MoreActionsMenu({
               }}
             >
               <Pencil className="h-4 w-4" />
-              Edit message
+              编辑消息
             </DropdownMenuItem>
           ) : null}
 
@@ -203,7 +203,7 @@ function MoreActionsMenu({
               ) : (
                 <MailOpen className="h-4 w-4" />
               )}
-              {isUnread ? "Mark read" : "Mark unread"}
+              {isUnread ? "标为已读" : "标为未读"}
             </DropdownMenuItem>
           ) : null}
 
@@ -222,7 +222,7 @@ function MoreActionsMenu({
               ) : (
                 <BellRing className="h-4 w-4" />
               )}
-              {isFollowingThread ? "Unfollow thread" : "Follow thread"}
+              {isFollowingThread ? "取消关注话题" : "关注话题"}
             </DropdownMenuItem>
           ) : null}
 
@@ -231,7 +231,7 @@ function MoreActionsMenu({
               onClick={() => {
                 copyTextToClipboard(
                   message.body,
-                  "Message copied to clipboard",
+                  "消息已复制到剪贴板",
                   buildMentionClipboardHtml({
                     identities: mentionIdentities,
                     text: message.body,
@@ -240,7 +240,7 @@ function MoreActionsMenu({
               }}
             >
               <Copy className="h-4 w-4" />
-              Copy message
+              复制消息
             </DropdownMenuItem>
           ) : null}
 
@@ -251,23 +251,23 @@ function MoreActionsMenu({
               }}
             >
               <Clock className="h-4 w-4" />
-              Remind me later
+              稍后提醒我
             </DropdownMenuItem>
           ) : null}
 
           {onSendToChannel ? (
             <DropdownMenuItem
-              aria-label="Send to channel"
+              aria-label="发送至频道"
               data-testid={`send-to-channel-${message.id}`}
               onClick={() => {
                 void onSendToChannel(message)
-                  .then(() => toast.success("Sent to channel"))
+                  .then(() => toast.success("已发送至频道"))
                   .catch((error) => {
                     console.error(
                       "Failed to send thread message to channel",
                       error,
                     );
-                    toast.error("Couldn't send to channel");
+                    toast.error("无法发送至频道");
                   });
               }}
             >
@@ -276,7 +276,7 @@ function MoreActionsMenu({
                 className="h-4 w-4"
                 data-testid="send-to-channel-icon"
               />
-              Send to channel
+              发送至频道
             </DropdownMenuItem>
           ) : null}
 
@@ -288,7 +288,7 @@ function MoreActionsMenu({
               }}
             >
               <Link2 className="h-4 w-4" />
-              Copy link
+              复制链接
             </DropdownMenuItem>
           ) : null}
 
@@ -302,7 +302,7 @@ function MoreActionsMenu({
               }}
             >
               <Flag className="h-4 w-4" />
-              Report message
+              举报消息
             </DropdownMenuItem>
           ) : null}
 
@@ -315,7 +315,7 @@ function MoreActionsMenu({
               }}
             >
               <Trash2 className="h-4 w-4" />
-              Delete message
+              删除消息
             </DropdownMenuItem>
           ) : null}
 
@@ -544,7 +544,7 @@ export const MessageActionBar = React.memo(function MessageActionBar({
                 <TooltipTrigger asChild>
                   <PopoverTrigger asChild>
                     <Button
-                      aria-label="Open reactions"
+                      aria-label="添加表情回应"
                       className={ACTION_BUTTON_CLASS}
                       data-testid={`react-message-${message.id}`}
                       size="sm"
@@ -555,7 +555,7 @@ export const MessageActionBar = React.memo(function MessageActionBar({
                     </Button>
                   </PopoverTrigger>
                 </TooltipTrigger>
-                <TooltipContent>React</TooltipContent>
+                <TooltipContent>表情回应</TooltipContent>
               </Tooltip>
               <PopoverContent
                 align="end"
@@ -596,7 +596,7 @@ export const MessageActionBar = React.memo(function MessageActionBar({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  aria-label="Reply"
+                  aria-label="回复"
                   className={ACTION_BUTTON_CLASS}
                   data-testid={`reply-message-${message.id}`}
                   onClick={() => {
@@ -609,7 +609,7 @@ export const MessageActionBar = React.memo(function MessageActionBar({
                   <CornerUpLeft className={ACTION_ICON_CLASS} />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Reply</TooltipContent>
+              <TooltipContent>回复</TooltipContent>
             </Tooltip>
           ) : null}
 
@@ -617,7 +617,7 @@ export const MessageActionBar = React.memo(function MessageActionBar({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  aria-label="Copy link"
+                  aria-label="复制链接"
                   className={ACTION_BUTTON_CLASS}
                   data-testid={`copy-link-message-${message.id}`}
                   onClick={() => {
@@ -630,7 +630,7 @@ export const MessageActionBar = React.memo(function MessageActionBar({
                   <Link2 className={ACTION_ICON_CLASS} />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Copy link</TooltipContent>
+              <TooltipContent>复制链接</TooltipContent>
             </Tooltip>
           ) : null}
 

@@ -14,9 +14,9 @@ import {
 } from "@/shared/ui/dropdown-menu";
 
 const LIFECYCLE_LABEL: Record<ChannelLifecycle, string> = {
-  ongoing: "Ongoing",
-  project: "Project",
-  temporary: "Temporary",
+  ongoing: "持续",
+  project: "项目",
+  temporary: "临时",
 };
 
 const LIFECYCLE_ICON = {
@@ -34,7 +34,7 @@ export function ChannelTypePicker({
   onLifecycleChange,
   onOpenChange,
   open,
-  temporaryOptionAriaLabel = "Temporary channel",
+  temporaryOptionAriaLabel = "临时频道",
   testId,
 }: {
   align?: React.ComponentProps<typeof DropdownMenuContent>["align"];
@@ -71,7 +71,7 @@ export function ChannelTypePicker({
     <DropdownMenu modal={false} onOpenChange={setPickerOpen} open={pickerOpen}>
       <DropdownMenuTrigger asChild>
         <Button
-          aria-label={ariaLabel ?? `Channel type: ${label}`}
+          aria-label={ariaLabel ?? `频道类型: ${label}`}
           className={cn(
             "h-9 w-fit px-2.5 text-sm font-medium text-foreground hover:bg-muted/50",
             className,
@@ -99,23 +99,23 @@ export function ChannelTypePicker({
       >
         <DropdownMenuRadioGroup onValueChange={selectType} value={lifecycle}>
           {allowProject ? (
-            <DropdownMenuRadioItem aria-label="Project channel" value="project">
-              Project
+            <DropdownMenuRadioItem aria-label="项目频道" value="project">
+              项目
             </DropdownMenuRadioItem>
           ) : null}
           <DropdownMenuRadioItem
-            aria-label="Ongoing channel"
+            aria-label="持续频道"
             disabled={projectLocked}
             value="ongoing"
           >
-            Ongoing
+            持续
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem
             aria-label={temporaryOptionAriaLabel}
             disabled={projectLocked}
             value="temporary"
           >
-            Temporary
+            临时
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>

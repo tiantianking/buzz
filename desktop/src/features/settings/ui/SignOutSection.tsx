@@ -24,7 +24,8 @@ import { SettingsOptionGroup, SettingsOptionRow } from "./SettingsOptionGroup";
  * stray capital or trailing space does not trip people up — the friction is
  * deliberate typing, not case sensitivity.
  */
-export const SIGNOUT_CONFIRM_PHRASE = "wipe all my data";
+export const SIGNOUT_CONFIRM_PHRASE = "清空我的所有数据";
+export const SIGNOUT_CONFIRM_PHRASE_EN = "wipe all my data";
 
 /**
  * Sign-out card + destructive confirmation flow.
@@ -36,7 +37,7 @@ export const SIGNOUT_CONFIRM_PHRASE = "wipe all my data";
  *    the dialog also shows the raw nsec as a last-chance fallback, and the
  *    user checks a box confirming they can restore their identity.
  * 2. Typed confirmation — the user must type the exact phrase
- *    "wipe all my data".
+ *    "wipe all my data" or "清空我的所有数据".
  *
  * Only when both gates pass does "Delete my data" become clickable.
  */
@@ -55,8 +56,10 @@ export function SignOutSection() {
 
   // Typed-confirmation gate.
   const [confirmText, setConfirmText] = React.useState("");
+  const trimmed = confirmText.trim().toLowerCase();
   const isPhraseConfirmed =
-    confirmText.trim().toLowerCase() === SIGNOUT_CONFIRM_PHRASE;
+    trimmed === SIGNOUT_CONFIRM_PHRASE ||
+    trimmed === SIGNOUT_CONFIRM_PHRASE_EN;
 
   const canDelete = hasConfirmedBackup && isPhraseConfirmed && !isPending;
 
@@ -89,7 +92,7 @@ export function SignOutSection() {
         setNsecError(
           err instanceof Error
             ? err.message
-            : "Failed to retrieve private key.",
+            : "无法获取私钥。",
         );
     } finally {
       if (!fetchCancelledRef.current) setIsNsecLoading(false);
@@ -101,14 +104,7 @@ export function SignOutSection() {
     // Keep the pending state if signOut() resolves before restart.
     signOut()
       .then(() => {
-        // Clear web storage for this origin on the success path only. This
-        // covers dev builds where the Rust webview wipe targets the
-        // .app-bundle WebKit dir (missing in `tauri dev`), preventing stale
-        // community config from vouching for the fresh key on next boot. In
-        // production the Rust wipe already handles this; the clear here is
-        // redundant but harmless. The restart may race this clear — that is
-        // acceptable; Fix A (pubkey-scoped heuristic) is the correctness
-        // gate.
+        // Clear web storage for this origin on the success path only.
         window.localStorage.clear();
         window.sessionStorage.clear();
       })
@@ -116,22 +112,20 @@ export function SignOutSection() {
         setIsPending(false);
         setIsOpen(false);
         resetDialogState();
-        toast.error(err instanceof Error ? err.message : "Sign out failed.");
+        toast.error(err instanceof Error ? err.message : "退出登录失败。");
       });
   }
 
   return (
     <div className="mt-12 pb-6" data-testid="settings-signout">
-      <SettingsOptionGroup title="Sign out">
+      <SettingsOptionGroup title="退出登录">
         <SettingsOptionRow>
           <div className="min-w-0">
             <p
               className="text-sm font-normal text-muted-foreground/70"
               data-settings-subcopy
             >
-              Removes your identity key and all local app data from this device.
-              Before signing out, create and test a password-protected key
-              backup above — this cannot be undone.
+              从当前设备中移除你的身份密钥及所有本地应用数据。在退出之前，请务必在上方创建并测试受密码保护的密钥备份——此操作无法撤销。
             </p>
           </div>
           <Button
@@ -142,9 +136,9 @@ export function SignOutSection() {
             variant="destructive"
           >
             {isPending ? (
-              <Spinner aria-label="Signing out" className="h-4 w-4 border-2" />
+              <Spinner aria-label="正在退出登录" className="h-4 w-4 border-2" />
             ) : null}
-            {isPending ? "Signing out…" : "Delete my data"}
+            {isPending ? "正在退出登录…" : "删除我的数据"}
           </Button>
         </SettingsOptionRow>
       </SettingsOptionGroup>
@@ -159,20 +153,18 @@ export function SignOutSection() {
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Sign out and wipe all data?</AlertDialogTitle>
+            <AlertDialogTitle>退出登录并清除所有数据？</AlertDialogTitle>
             <AlertDialogDescription>
-              This will delete your identity key, all agent settings, and cached
-              data from this device, then relaunch Buzz into first-run setup.
-              This cannot be undone.
+              这将从此设备中彻底删除你的身份密钥、所有智能体设置及缓存数据，然后重启 Buzz 进入初始设置引导流程。此操作无法撤销。
             </AlertDialogDescription>
           </AlertDialogHeader>
 
           <div className="space-y-3">
             <p className="text-sm font-medium">
-              1. Confirm you can restore your identity
+              1. 确认你可以恢复身份
             </p>
             {isNsecLoading ? (
-              <p className="text-sm text-muted-foreground">Loading…</p>
+              <p className="text-sm text-muted-foreground">正在加载…</p>
             ) : nsecError ? (
               <p
                 className="text-sm text-destructive"
@@ -199,8 +191,7 @@ export function SignOutSection() {
                 }
               />
               <span>
-                I have tested a key backup or saved this private key somewhere
-                safe.
+                我已经测试过密钥备份，或已将此私钥妥善保存在安全的地方。
               </span>
             </label>
           </div>
@@ -210,9 +201,9 @@ export function SignOutSection() {
               className="text-sm font-medium"
               htmlFor="signout-confirm-phrase"
             >
-              2. Type{" "}
+              2. 请输入{" "}
               <span className="font-semibold">"{SIGNOUT_CONFIRM_PHRASE}"</span>{" "}
-              to confirm
+              以确认
             </label>
             <Input
               autoComplete="off"
@@ -227,7 +218,7 @@ export function SignOutSection() {
           </div>
 
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={isPending}>取消</AlertDialogCancel>
             {/* A plain Button, not AlertDialogAction: Radix's Action closes
                 the dialog on click, which would drop the pending state while
                 the wipe + restart is still in flight. */}
@@ -240,11 +231,11 @@ export function SignOutSection() {
             >
               {isPending ? (
                 <Spinner
-                  aria-label="Signing out"
+                  aria-label="正在退出登录"
                   className="h-4 w-4 border-2"
                 />
               ) : null}
-              {isPending ? "Signing out…" : "Delete my data"}
+              {isPending ? "正在退出登录…" : "删除我的数据"}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
